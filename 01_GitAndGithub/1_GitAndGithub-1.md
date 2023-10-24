@@ -29,8 +29,7 @@ GitHub is een webgebaseerd platform met git's versiecontrolefuncties, zodat ze i
 [git-bash-cmds](https://dev.classmethod.jp/articles/git-bash-commands/)
 
 ## ERVAREN PROBLEMEN:
-
-Ik heb mijn versie van Git verwijderd en opnieuw geïnstalleerd omdat ik problemen had met git push commando. Ik heb in de configuratie van Git voor de cmd(windows) CLI gekozen en daarna werkte het wel naar behoren.
+Ik krijg mijn class room repo niet in mijn  github account te zien, ik kan geen push commands uitvoeren.
 
 ## RESULTAAT:
 
@@ -38,11 +37,11 @@ Ik heb mijn versie van Git verwijderd en opnieuw geïnstalleerd omdat ik problem
 * Maak een GitHub account als je er nog geen hebt
   Ik had al een bestaand account.
 
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_9.png) 
+  ![PrtSc](../00_includes/GIT/githubacc.png) 
 
 * Maak een repository op je GitHub account voor je portfolio
 
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_8.png)
+  ![PrtSc](../00_includes/GIT/testrepo.png)
 
 * Geef permissies aan je teamgenoten om de repository te gebruiken
 
@@ -50,13 +49,11 @@ Ik heb mijn versie van Git verwijderd en opnieuw geïnstalleerd omdat ik problem
 
 * Push je code naar je repository
 
- test.txt
-
   ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_5.png)
 
 * Pull / Clone een repository van je peer.
 
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_10.png)
+  ![PrtSc](../00_includes/GIT/cloneAhleem.png)
 
 
 **Opdracht 2:**
