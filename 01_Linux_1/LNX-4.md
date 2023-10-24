@@ -51,19 +51,19 @@ If you're _**not the root user**_ but a user with admin priviliges use the sudo 
 * Enter any additional information about the new user. (optional)
 * If the provided information is correct, press Y to continue.
 
-![ScrShot](../00_includes/SCREENSHOTS/Linux/2023-06-07_1.png)
+![ScrShot](../00_includes/Linux/linux4.0.png)
 
 ### Granting a User Sudo Privileges:
 
 Enter following command: **sudo usermod -aG sudo 'username'**
 
-![ScrShot](../00_includes/SCREENSHOTS/Linux/2023-06-07_3.png)
+![ScrShot](../00_includes/Linux/linux4.1.png)
 
 ### Show the new user in the passwd, shadow and group files:
 
 **I've used the grep command to filter out the user from the files.**
 
-![ScrShot](../00_includes/SCREENSHOTS/Linux/2023-06-07_4.png)
+![ScrShot](../00_includes/Linux/linux4.2.png)
 
 
 

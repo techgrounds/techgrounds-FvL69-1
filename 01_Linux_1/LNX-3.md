@@ -46,5 +46,5 @@ command to filter the output so that only the sentence containing ‘techgrounds
 Geen
 
 ## RESULTAAT:
-![PrntSc]()
+![PrntSc](../00_includes/Linux/linux3.png)
 
