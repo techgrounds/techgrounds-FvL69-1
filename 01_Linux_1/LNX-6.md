@@ -40,24 +40,18 @@ none really
 
 **Starting the telnet deamon with the telnet command:**
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/2023-06-07_7.png)
+![PrntScr](../00_includes/Linux/linux6.0.png)
 
 
 **Finding out the telnetd PID by using the command: ps -aux | grep telnetd**
 
-The PID is: **7945**
+The PID is: **3243**
 
 %MEM is: **0.0**
-
-![PrntScr](../00_includes/wSCREENSHOTSeek1/Linux/2023-06-07_6.png)
-
 
 
 Killing the telnetd deamon process is not possible, a deamon can't be interacted with.
 
-But we can kill the telnet process:
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/2023-06-07_8.png)
 
 
 
