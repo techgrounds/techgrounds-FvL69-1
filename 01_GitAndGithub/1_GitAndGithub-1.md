@@ -49,7 +49,7 @@ Ik krijg mijn class room repo niet in mijn  github account te zien, ik kan geen 
 
 * Push je code naar je repository
 
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_5.png)
+  ![PrtSc](../00_includes/GIT/gitpush.png)
 
 * Pull / Clone een repository van je peer.
 
