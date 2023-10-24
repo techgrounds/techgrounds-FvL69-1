@@ -36,6 +36,6 @@ message = 'Hello World!
 print(message)
 ```
 ### Een link naar een website:
-[connect ec2 instance ssh](https://www.clickittech.com/aws/connect-ec2-instance-using-ssh/)
+[md_cheatsheet](https://support.squarespace.com/hc/en-us/articles/206543587-Markdown-cheat-sheet)
 
 **a bold tekst**
