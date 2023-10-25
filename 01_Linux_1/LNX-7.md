@@ -50,63 +50,41 @@ To successfully create and run a shell script, we need to do three things:
 
 
 ## DIFFICULTIES:
+None
 
 ## Exercise 1:
-* I had no real difficulties.
 
-## Exercise 2:
-* None.
-
-## Exercise 3:
-* None.
-
-## RESULT:
-
-## Exercise 1:
 ### Creating scripts directory
+*mkdir scripts*
+
 ### Add scripts dir to $PATH permanently by adding it to the .bashrc file
+![PrntScr](../00_includes/Linux/linux7.1.png)
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/scripts1.png)
+### This script takes any text file as positional parameter in which you want to append text.
+![PrntScr](../00_includes/Linux/linux7.0.png)
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/SetPATH.png)
-
-
-
-### This bash script takes any text file as positional parameter in which you want to append text.
-
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/scripts3.png)
-
-### The bash script code in nano
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/scripts4.png)
-
-
-### Prerequisites for apache2 set up , setting up a basic firewall
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/init_server_setup.png)
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/allowApache.png)
+### The script code in nano
+![PrntScr](../00_includes/Linux/linux7.2.png)
 
 ### Installed, activated and enabled apache2 by bash script.
-
-![PrntScr](../00_includes/SCREENSHOTS/Linux/nanoApacheScript.png)
-
-![PrntScr](../00_includes/week1/SCREENSHOTS/apache2server.png)
+![PrntScr](../00_includes/Linux/linux7.4.png)
+![PrntScr](../00_includes/Linux/linux7.3.png)
 
 
 ## Exercise 2:
 
-### Creating a script that produces a random number.
+### Creating a script that produces a random number stored in a variable and append it to a file.
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/randomNum1.1.png)
+![PrntScr](../00_includes/Linux/linux7.5.png)
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/randomNum1.0.png)
+![PrntScr](../00_includes/Linux/linux7.6.png)
 
 ## Exercise 3:
 
-### Creating a script that produces a random number with added functionality.
+### Create a script that generates a random number between 1 and 10.
+### Stores it in a variable and appends it to a text file if the number is bigger than 5.
+### The script appends a line of text if the number is less than or equal to 5.
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/randomNum2.0.png)
+![PrntScr](../00_includes/Linux/linux7.8.png)
 
-![PrntScr](../00_includes/SCREENSHOTS/Linux/randomNum2.1.png)
+![PrntScr](../00_includes/Linux/linux7.7.png)
