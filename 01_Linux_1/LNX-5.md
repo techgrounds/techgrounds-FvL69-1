@@ -32,5 +32,4 @@ Understanding Linux file permissions (how to find them, read them, and change th
 geen
 
 ## RESULTAAT:
-
 ![ScrSht](../00_includes/Linux/linux5.0.png)

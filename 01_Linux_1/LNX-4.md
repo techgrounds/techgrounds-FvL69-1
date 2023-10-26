@@ -1,10 +1,10 @@
 ## USERS AND GROUPS:
 
-There are two kinds of users in Linux: the root user and the regular user.
-The root user is the system administrator and has access to the whole 
-system. The regular user has only limited access to his own account and files
-created. It is possible for a regular user to get admin priviliges (sudo priviliges)
-from the sys admin (root user) if needed. All users are also part of user groups.
+There are two kinds of users in Linux: the root user and the regular user.  
+The root user is the system administrator and has access to the whole   
+system. The regular user has only limited access to his own account and files  
+created. It is possible for a regular user to get admin priviliges (sudo priviliges)  
+from the sys admin (root user) if needed. All users are also part of user groups.  
 
 ## KEY-TERMS:
 
@@ -59,7 +59,7 @@ Enter following command: **sudo usermod -aG sudo 'username'**
 
 ![ScrShot](../00_includes/Linux/linux4.1.png)
 
-### Show the new user in the passwd, shadow and group files:
+### Show the new user in the passwd and shadow files:
 
 **I've used the grep command to filter out the user from the files.**
 

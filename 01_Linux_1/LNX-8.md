@@ -56,4 +56,4 @@ None
 
 ### Create log file in /var/log. Adjust the write permissions and change grp to sudo user.
 ![log-file](../00_includes/Linux/linux8.5.png)
-
+![write-perm](../00_includes/Linux/linux8.6.png)

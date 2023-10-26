@@ -1,8 +1,8 @@
 ## BASH SCRIPTING:
 
-A BASH script is a file containing a series of commands. The shell
-reads this file and carries out the commands as though they have been 
-entered directly on the command line.
+A BASH script is a file containing a series of commands. The shell  
+reads this file and carries out the commands as though they have been   
+entered directly on the command line.  
 
 To successfully create and run a shell script, we need to do three things:
 * Write a script. 
@@ -13,7 +13,7 @@ To successfully create and run a shell script, we need to do three things:
 
 * **BASH** = Bourne Again Shell, the LINUX/UNIX CLI (command line interface)
 * **nano** = text editor (to write the script)
-* **$PATH** = environment variable used to set the path to an executable file
+* **export PATH="path-to-your-dir:$PATH"** = command used to set the environmental variable $PATH to the dir where the executable file resides
 * **HTTPd** = Apaches Hyper Text Transfer Protocol deamon
 * **script** = Scripting allows for an automatic commands execution 
 
@@ -58,6 +58,7 @@ None
 *mkdir scripts*
 
 ### Add scripts dir to $PATH permanently by adding it to the .bashrc file
+### Add export PATH="your-dir:$PATH" to the last line of the file, where your-dir is the directory you want to add.
 ![PrntScr](../00_includes/Linux/linux7.1.png)
 
 ### This script takes any text file as positional parameter in which you want to append text.
