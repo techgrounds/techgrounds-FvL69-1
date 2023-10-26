@@ -33,51 +33,27 @@ Crontabs use the following flags for adding, listing and removing cron jobs.
 
 
 ## DIFFICULTIES:
-
-**Exercise 1:**
-I forgot to adjust the write permissions in the target file and i used an incomplete path 
-in my crontab. Simple (bit anoying) mistakes but good for learning purposes.
-
+None
 
 ## RESULT:
 
 ## Exercise 1:
 
-### Create a text file to append the date-time to and adjust the write permissions.
+### Create a bash script that writes the current date and time to a file in your home directory.
 
-![txt-file](../00_includes/week1/Linux/cronjob8.1.png)
+![bash-script](../00_includes/Linux/linux8.0.png)
 
-### Create a script with the proper commands in nano.
+### Register the script in your cron tab so that it runs every minute
 
-![date-script](../00_includes/week1/Linux/cronjob8.0.png)
+![date-script](../00_includes/Linux/linux8.2.png)
+![script_exec](../00_includes/Linux/linux8.1.png)
 
-### To use cron jobs, you'll need to check if the cron service is active. (sudo priviliges requiered!)
-
-![cron_status_check](../00_includes/week1/Linux/cronjob8.0.0.png)
-
-### Register the script in your cron tab so that it runs every minute.
-
-![crontab-datetime](../00_includes/week1/Linux/cronjob8.2.png)
-
-### Misson accomplished.
-
-![append-script-to-file](../00_includes/week1/Linux/cronjob8.3.png)
-
-
-## Exercise 2:
-
-### Create a script that writes available disc space to a log file in /var/logs.
-
-![script-diskspace](../00_includes/week1/Linux/diskspace8.0.png)
+### Create a script that writes available disc space to a log file in /var/logs. Use a cron job so that it runs weekly.
+![df-script](../00_includes/Linux/linux8.3.png)
 
 ### Register script in crontab scheduled to run weekly on monday at 6 am.
-
-![crontab-diskspace](../00_includes/week1/Linux/diskspaceCrontab.png)
+![crontab-diskspace](../00_includes/Linux/linux8.4.png)
 
 ### Create log file in /var/log. Adjust the write permissions and change grp to sudo user.
-
-![log-file](../00_includes/week1/Linux/diskspace8.1.png)
-
-## Done!
-
+![log-file](../00_includes/Linux/linux8.5.png)
 
