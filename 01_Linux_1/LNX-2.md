@@ -32,6 +32,6 @@ PWD = present working directory
 Geen.
 
 ## RESULTAAT:
-![PrtSc result](../00_includes/Linux/lnx-2.png)
+![PrtSc result](../00_includes/Linux/linux2.png)
 
 

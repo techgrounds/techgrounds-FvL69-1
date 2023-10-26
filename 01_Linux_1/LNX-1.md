@@ -26,18 +26,13 @@ server in te loggen.
   should show your username.
 
 ## GEBRUIKTE BRONNEN:
-
 [connect ec2 instance ssh](https://www.clickittech.com/aws/connect-ec2-instance-using-ssh/)
-
-![PrtSc clickittech](../00_includes/Linux/2023-06-06_1.png)
-
 
 ## ERVAREN PROBLEMEN:
 De in de beschrijving gegeven link naar OpenSSH voor Windows vond ik niet helder. 
 
 ## RESULTAAT:
-
-![PrtSc result](../00_includes/Linux/sshLoginVM.png)
+![PrtSc result](../00_includes/Linux/linux1.0.png)
 
 **Inloggen bij AWS Linux server in Git Bash:**
 ssh -p52204 -i Nest-fr-van-lieshout.pem francois@3.121.40.175
