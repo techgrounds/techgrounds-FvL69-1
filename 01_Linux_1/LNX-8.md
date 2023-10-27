@@ -1,6 +1,6 @@
 ## CRON JOBS:
 
-Any task that you schedule through crons is called a cron job. Cron jobs help us automate our routine tasks, whether they're hourly, daily, monthly, or yearly.
+Any task that you schedule through cron is called a cron job. Cron jobs help us automate our routine tasks, whether they're hourly, daily, monthly, or yearly.
 
 Crontabs use the following flags for adding, listing and removing cron jobs.
 * crontab -e: edits crontab entries to add, delete, or edit cron jobs.
@@ -57,3 +57,6 @@ None
 ### Create log file in /var/log. Adjust the write permissions and change grp to sudo user.
 ![log-file](../00_includes/Linux/linux8.5.png)
 ![write-perm](../00_includes/Linux/linux8.6.png)
+
+### Make sure to set the correct local time zone for the cronjobs to execute on the intended time!
+![set-timedatectl](../00_includes/Linux/linux8.7.png)
