@@ -33,7 +33,7 @@ Ik krijg mijn class room repo niet in mijn  github account te zien, ik kan geen 
 
 ## RESULTAAT:
 
-**Opdracht 1:**
+**Opdracht:**
 * Maak een GitHub account als je er nog geen hebt
   Ik had al een bestaand account.
 
@@ -56,13 +56,4 @@ Ik krijg mijn class room repo niet in mijn  github account te zien, ik kan geen 
   ![PrtSc](../00_includes/GIT/cloneAhleem.png)
 
 
-**Opdracht 2:**
-* Maak een nieuwe repository aan voor je portfolio
 
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-05_6.png)
-
-* Push je notities naar de repository
-
-  ![PrtSc](../00_includes/SCREENSHOTS/Git/2023-06-06_4.png)
-  
-* Deel deze repository met je Learning Coach
