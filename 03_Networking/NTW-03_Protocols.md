@@ -43,8 +43,8 @@ Protocols in higher layers, like HTTPS and SSH, all have their own use cases. Mo
 
 |Layer   | 	   OSI model	|    Protocols                           |TCP/IP model     |    
 |:-------|:--------------:|:---------------------------------------|:---------------:|    
-|Layer 7 | 	Application   | SMTP, HTTP, FTP, POP3, SNMP            |  APPLICATION    |  
-|Layer 6 | 	Presentation 	|MPEG, ASCH, SSL, TLS                    |  APPLICATION    |  
+|Layer 7 | 	Application   | SMTP, HTTP, FTP, SSH, SNMTP            |  APPLICATION    |  
+|Layer 6 | 	Presentation 	|MPEG, ASCH, SSL, TLS, SCP               |  APPLICATION    |  
 |Layer 5 | 	Session 	    |NetBIOS, SAP                            |  APPLICATION    |  
 |Layer 4 | 	Transport 	  |TCP, UDP                                |  TRANSPORT      |    
 |Layer 3 | 	Network 	    |IPV5, IPV6, ICMP, IPSEC, ARP, MPLS      |  NETWORK        |  
@@ -76,13 +76,13 @@ Protocols in higher layers, like HTTPS and SSH, all have their own use cases. Mo
 
 ### What is wireshark:
 
-* Wireshark is a network protocol analyzer, or an application that captures packets from a network connection,  
+* Wireshark is a network protocol analyzer, an application that captures packets from a network connection,  
   such as from your computer to your home office or the internet. Packet is the name given to a discrete unit of data in  
   a typical Ethernet network. Wireshark is the most often-used packet sniffer in the world.
 
 
 ## Wireshark running in windows.
 
-![wireshark-windows-frame-capture](../00_includes/SCREENSHOTS/Networking/NTW-1.6-wireshark-frame.png)
+![wireshark-windows-frame-capture](../00_includes/Networking/NTW3.0-wireshark-frame.png)
 
 

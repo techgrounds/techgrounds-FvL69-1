@@ -36,24 +36,17 @@ None
 ## RESULT:
 
 ## Common network devices and their functions:
+### Router:
 
-### Hubs:
+The main role of the router is to forward packets of information to their destinations. Routers are more intelligent than hubs or switches as they store information about the other network devices they are connected to. Routers can play an important role in network security, as they can be configured to serve as packet-filtering firewalls and reference access control lists (ACLs) when forwarding packets. In addition to filtering authorized network traffic, they also are used to divide networks into subnetworks, thus facilitating a zero-trust architecture.  
 
-Hubs are used to connect multiple network devices together. They can be used to transmit both digital and analog information. Digital information is transmitted as packets, whereas analog information is transmitted as a signal. Hubs also act as a repeater, which amplifies signals that have weakened after being transmitted across a long distance.  
-
-Hubs operate at the OSI layer 1 (Physical layer).
+Routers operate at the 0SI layer 3 (Network layer).
 
 ### Switch:
 
 A switch is a multiport network device whose purpose is to improve network efficiency and improve communication between hubs, routers, and other network devices. Switches are intelligent devices that gather information from incoming packets in order to forward them to the appropriate destination. Switches generally have limited information about the other nodes on the network.  
 
 Network switches can operate at either OSI layer 2 (Data link layer) or layer 3 (Network layer).
-
-### Router:
-
-The main role of the router is to forward packets of information to their destinations. Routers are more intelligent than hubs or switches as they store information about the other network devices they are connected to. Routers can play an important role in network security, as they can be configured to serve as packet-filtering firewalls and reference access control lists (ACLs) when forwarding packets. In addition to filtering authorized network traffic, they also are used to divide networks into subnetworks, thus facilitating a zero-trust architecture.  
-
-Routers operate at the 0SI layer 3 (Network layer).
 
 ### Bridge:
 
@@ -66,6 +59,12 @@ Bridges operate at the OSI layer 2 (Data link layer).
 A gateway device is used to facilitate interoperability between different technologies such as Open System Interconnection (OSI) and Transmission Control Protocol/Internet Protocol (TCP/IP). In other words, they translate each other’s messages. You could think of a gateway as a router, but with added translation functionality.  
 
 Gateways operate at the OSI layer 3 (Network layer)
+
+### Hubs:
+
+Hubs are used to connect multiple network devices together. They can be used to transmit both digital and analog information. Digital information is transmitted as packets, whereas analog information is transmitted as a signal. Hubs also act as a repeater, which amplifies signals that have weakened after being transmitted across a long distance.  
+
+Hubs operate at the OSI layer 1 (Physical layer).
 
 ### Repeater:
 
@@ -83,16 +82,16 @@ Access Points operate at the 0SI layer 1 (Physical layer) or layer 2 (Data link 
 
 ## Overview of connected devices.
 
-![router-overview-devices](../00_includes/SCREENSHOTS/Networking/NTW-1.0-devices-overview.png)
+![router-overview-devices](../00_includes/Networking/NTW2.0-devices-overview.png)
 
 ## More info on connected devices.
 
-[dhcp-log_devices](../00_includes/SCREENSHOTS/Networking/NTW-1.2-DHCP-LOG.png) 
+![dhcp-log_devices](../00_includes/Networking/NTW2.1-DHCP-LOG.png) 
 
 
 ## My LAN DHCP server resides in my modem.
 
 * It is not configured.
 
-![lan-dhcp](../00_includes/SCREENSHOTS/Networking/NTW-1.1-LAN-DHCP.png)
+![lan-dhcp](../00_includes/Networking/NTW2.3-LAN-DHCP.png)
 

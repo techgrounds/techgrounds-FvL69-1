@@ -67,11 +67,11 @@ So, 154 in binary is: 10011010
 
 ### Convert the following decimals into binary.  
 |Decimal   |Binary     |  
-|:-------- |:--------- |  
+|:-------- |:--------: |  
 |16        |10000      |  
-|128       |10000000   |  
-|228       |11100100   |  
-|112       |1110000    |  
+|128       |1000 0000  |  
+|228       |1110 0100  |  
+|112       |1110000   |  
 |73        |1001001    |    
 
 ### Convert the following binary number into decimal.
