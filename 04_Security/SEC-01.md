@@ -28,12 +28,12 @@ None
 
 ### Scan the network of your Linux machine using nmap. What do you find?
 
-![nmap-scan](../00_includes/SCREENSHOTS/Security/SEC-01_nmap.png)
+![nmap-scan](../00_includes/Security/SEC1.0_nmap.png)
 
 
 ### Opening a browser on my laptop showed on wireshark.
 
-![wireshark](../00_includes/SCREENSHOTS/Security/SEC-01_wireshark0.1.png)
+![wireshark](../00_includes/Security/SEC1.1_wireshark0.1.png)
 
 
 
