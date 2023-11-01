@@ -10,7 +10,7 @@ network interface identification and location addressing.
 * WLAN = wireless local area network (your wifi network)
 * IPv4 = 32 bit address
 * IPv6 = 128 bit address
-* NAT = Network Address Translating  
+* NAT = Network Address Translation  
         Makes sure that a router always can assign an uniq IP(v4) address to a device that wants to connect to the internet.  
 
 ## STUDY:
@@ -38,19 +38,20 @@ network interface identification and location addressing.
 
 ## DIFFICULTIES:
 
-* I found this topic somewhat confusing at first to comprehend.
+* None.
 
 ## RESULT:
 
 ### What is the public IP address of my phone and laptop on wifi.
-* My public IP address is: 213.10.121.82 so my phone and laptop have the same public IP.  
+* My public IP address is 86.83.75.133 so my phone and laptop have the same public IP.  
   Every device connected to a single network has the same public, outward-facing IP address.    
   A public IP address identifies you to the wider internet so that all the information you're searching for can find you.   
   A private IP address is used within a private network to connect securely to other devices within that same network.  
+  ![public_ip](../00_includes/Networking/NTW5.0.png)
 
 ### Discover what my private IP addresses are of phone and laptop. 
-* Private IP address of phone: 192.168.2.14 
-* Private IP address of laptop: 192.168.2.19  
+* Private IP address of phone: 192.168.2.2 
+* Private IP address of laptop: 192.168.2.3  
   These addresses are different to be able to communicate with these devices.  
 
 ### Change the private IP of my phone into my laptop's IP.
