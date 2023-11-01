@@ -28,10 +28,7 @@ As a network administrator you get to choose which networking devices get used.
 
 
 ## USED RESOURCES:
-
-[google](https://www.google.com/search?client=firefox-b-d&q=what+is+the+purpose+of+an+internet+gateway)
-
-[google](https://www.google.com/search?client=firefox-b-d&q=active+directory)
+[flowchart-maker](https://app.diagrams.net/)
 
 ### Previous assignment, subnetting.
 
@@ -41,7 +38,7 @@ No.
 
 ## RESULT:
 
-![NTW-case-study](../00_includes/SCREENSHOTS/Security/NTW_case-study.png)
+![NTW-case-study](../00_includes/Networking/NTW7.0case-study.png)
 
 ### Explanation:
 

@@ -29,11 +29,6 @@ Subnetting makes network routing much more efficient.
 
 [Howto-Design-a-Basic-Subnet](https://www.youtube.com/watch?v=SBYNeGIng6I)
 
-![subnet-diagram](../00_includes/SCREENSHOTS/Networking/NTW-06_diagram.png)
-
-![subnet-cheatsheet](../00_includes/SCREENSHOTS/Networking/NTW-06_subnet-cheatcheet.png)
-
-
 ## DIFFICULTIES:
 
 A lot of information to cover to be able to understand how subnetting works.
@@ -49,8 +44,15 @@ A lot of information to cover to be able to understand how subnetting works.
 
 
 ### Network Architecture:
+![subnet-cheatsheet](../00_includes/Networking/NTW6.0subnet-cheatcheet.png)
+### The CIDR and SUBNET MASK notations both identify the size of the subnet.
+#### /24 => 255.255.255.128  
+#### /27 => 255.255.255.224  
+  
+![subnet-diagram](../00_includes/Networking/NTW6.1diagram.png)
 
-![subnet_architecture](../00_includes/SCREENSHOTS/Networking/NTW-06_Architecture.png)
+![subnet_architecture](../00_includes/Networking/NTW6.2Architecture.png)
+* In the /25 network the last host must be 10.0.0.127 instead of .128
 
 **Explanation:**
 
