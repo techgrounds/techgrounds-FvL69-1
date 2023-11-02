@@ -18,8 +18,7 @@ There are many tools available to do this, but this exercise will focus on two v
 
 ## USED RESOURCES:
 
-[nmap-codecamp](https://www.freecodecamp.org/news/what-is-nmap-and-how-to-use-it-a-tutorial-for-the-greatest-scanning-tool-of-all-time/)
-
+![nmap-h](../00_includes/Security/SEC0.0.png)
 ## DIFFICULTIES:
 
 None

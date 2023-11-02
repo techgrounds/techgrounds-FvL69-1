@@ -29,29 +29,30 @@ that sits between a private internal network and the public Internet.
 
 ## DIFFICULTIES:
 
-I could not connect with my linux server via the web browser on my laptop. A peer suggested to try it with my mobile which didn't work at first,  
-but after i switched off the wifi i did work. So i need to look at my wifi config. 
+None
 
 ## RESULT:
 
 ### Apache webserver installed and running.
-![active_webserver](../00_includes/SCREENSHOTS/Security/SEC-02_0.0.png)
+![active_webserver](../00_includes/Security/SEC2.0.png)
 
-### Apache2 standart page.
-![standard-page-apache2](../00_includes/SCREENSHOTS/Security/SEC-02_0.1.png)
+### Apache2 default page.
+![standard-page-apache2](../00_includes/Security/SEC2.1.png)
 
-### ufw status check
-![ufw-status-open](../00_includes/SCREENSHOTS/Security/SEC-02_1.0.png)
+### Configuring ufw firewall.
+![allow_deny_trafic](../00_includes/Security/SEC2.2.png)
 
-### Apache accessable still.
-![apache-index.html](../00_includes/SCREENSHOTS/Security/SEC-02_1.2.png)
+### Checking if IPv6 is enabled.
+![IPv6_enabled](../00_includes/Security/SEC2.3.png)
 
-### Deny IN apache with cmd: sudo ufw deny apache
+### Allowing SSH trafic.
+![allow-SSH](../00_includes/Security/SEC2.4.png)
 
-![deny-apache](../00_includes/SCREENSHOTS/Security/SEC-02_1.1.png)
+### Enable firewall.
+![enable_ufw](../00_includes/Security/SEC2.5.png)
 
-### The outbound traffic had to be blocked (for obvious reasons)
-![deny-outbound-traffic](../00_includes/SCREENSHOTS/Security/SEC-03_1.3.png)
+### Firewall configured correctly.
+![ufw_status_verbose](../00_includes/Security/SEC2.6.png)
 
-### Access denied.
-![access-denied](../00_includes/SCREENSHOTS/Security/SEC-03_1.4.png)
+### Trying to access apache server from my mobile. 
+![access_denied](../00_includes/Security/SEC2.7.jpg)
