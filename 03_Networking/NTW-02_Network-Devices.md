@@ -89,9 +89,7 @@ Access Points operate at the 0SI layer 1 (Physical layer) or layer 2 (Data link 
 ![dhcp-log_devices](../00_includes/Networking/NTW2.1-DHCP-LOG.png) 
 
 
-## My LAN DHCP server resides in my modem.
-
-* It is not configured.
+## My LAN DHCP server resides in my router.
 
 ![lan-dhcp](../00_includes/Networking/NTW2.3-LAN-DHCP.png)
 

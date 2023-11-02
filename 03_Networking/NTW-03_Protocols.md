@@ -10,7 +10,7 @@ Protocols in higher layers, like HTTPS and SSH, all have their own use cases. Mo
 
 ## KEY-TERMS:
 
-* wireshark = packet sniffing tool
+* wireshark = a network protocol analyzer (packet sniffing tool)
 * TCP = transmission control protocol
 * UDP = user datagram protocol  
 
@@ -47,7 +47,7 @@ Protocols in higher layers, like HTTPS and SSH, all have their own use cases. Mo
 |Layer 6 | 	Presentation 	|MPEG, ASCH, SSL, TLS, SCP               |  APPLICATION    |  
 |Layer 5 | 	Session 	    |NetBIOS, SAP                            |  APPLICATION    |  
 |Layer 4 | 	Transport 	  |TCP, UDP                                |  TRANSPORT      |    
-|Layer 3 | 	Network 	    |IPV5, IPV6, ICMP, IPSEC, ARP, MPLS      |  NETWORK        |  
+|Layer 3 | 	Network 	    |IPV4, IPV6, ICMP, IPSEC, ARP, MPLS      |  NETWORK        |  
 |Layer 2 | 	Data Link 	  |RAPA, PPP, Frame Relay, ATM, Fiber Cable|  DATALINK       |  
 |Layer 1 | 	Physical 	    |RS232, 100BaseTX, ISDN, 11              |  DATALINK       |  
 
