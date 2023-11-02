@@ -54,5 +54,5 @@ None
 ### Firewall configured correctly.
 ![ufw_status_verbose](../00_includes/Security/SEC2.6.png)
 
-### Trying to access apache server from my mobile. 
-![access_denied](../00_includes/Security/SEC2.7.jpg)
+### Trying to access apache server. 
+![access_denied](../00_includes/Security/SEC2.7.png)
