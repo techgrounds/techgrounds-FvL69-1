@@ -105,7 +105,7 @@ So, 154 in binary is: 10011010
 9 -> 9  
 
 
-### How to calculate from decimal to hex:
+### How to calculate from decimal to hexadecimal.
 479 -> hex  
 
 479 : 16 = 29.9375  
