@@ -43,7 +43,7 @@ network interface identification and location addressing.
 ## RESULT:
 
 ### What is the public IP address of my phone and laptop on wifi.
-* My public IP address is 86.83.75.133 so my phone and laptop have the same public IP.  
+* My public IP address is 86.83.75.135 so my phone and laptop have the same public IP.  
   Every device connected to a single network has the same public, outward-facing IP address.    
   A public IP address identifies you to the wider internet so that all the information you're searching for can find you.   
   A private IP address is used within a private network to connect securely to other devices within that same network.  

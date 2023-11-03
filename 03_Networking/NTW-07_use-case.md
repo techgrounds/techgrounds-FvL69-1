@@ -44,6 +44,6 @@ No.
 
 * A public subnet for the webshop database, web server and a firewall before the internet gateway.
 * A private subnet for the 5 work stations and printer connected to a switch connected to a NAT gateway.
-* A 2nd private subnet for the AD server and file server connected to private subnet 1 switch.
+* A 2nd private subnet for the AD server and file server connected to private subnet switch.
 
 For security reasons the switch is connected to a NAT gateway which is connected to the public subnet firewall.  
