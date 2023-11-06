@@ -18,7 +18,7 @@ Asymmetric encryption solves this issue. Instead of 1 key, you get 2: A public k
 
 ## USED RESOURCES:
 
-[asymmetric-encryption_tool](https://travistidwell.com/jsencrypt/demo/)
+[asymmetric-encryption_tool](https://www.devglan.com/online-tools/rsa-encryption-decryption)
 
 ## DIFFICULTIES:
 
@@ -27,8 +27,12 @@ None
 ## RESULT:
 
 ### Generate a public and private key-pair.
-![generating-key-pair](../00_includes/SCREENSHOTS/Security/SEC-05_Asymm-encryption1.0.png)
+![generating-key-pair](../00_includes/Security/SEC5.0.png)
+
+### Exchanging public keys with peer.
+![public-key-swap](../00_includes/Security/SEC5.1.png)
+
+### Decrypting a message with pubLic key send by peer.
+![decrypting-peer-msg](../00_includes/Security/SEC5.2.png)
 
 
-### Decrypting a message with pubic key send by a peer.
-![asymm-mssg-received-from-peer](../00_includes/SCREENSHOTS/Security/SEC-5_Asymm-encryption.png)

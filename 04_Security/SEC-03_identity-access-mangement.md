@@ -1,4 +1,4 @@
-## IDENTITY and ACCESS MANAGEMENT:
+## IAM: IDENTITY and ACCESS MANAGEMENT:
 
 Identity and access management (IAM) is the practice of making sure that people and entities with digital  
 identities have the right level of access to enterprise resources like networks and databases. User roles  
