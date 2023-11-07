@@ -84,6 +84,9 @@ In addition to simply encoding the symmetric key with a public key, the first en
 
 #### Now AES key is in possession of my peer and encrypted AES traffic can start.
 
+#### Message from Jared decrypted with his symmetric key.
+![sym-encrypted-msg-frod-Jared](../00_includes/Security/SEC4.4.png)
+
 ## Disadvantages of Symmetric Cryptography    
 The main challenge concerning symmetric cryptography is finding a secure way to share a cryptographic key.
 

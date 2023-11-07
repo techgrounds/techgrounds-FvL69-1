@@ -39,6 +39,7 @@ SHA512 hash not recognised by rainbow table. I've tried it without $ID$SALTING$ 
 ## RESULT:
 
 ### Why is hashing preffered over symmetric encryption?  
+The short version: Encryption is reversable and Hashing is irreversable.
 
 Encryption is a two-way function where data is passed in as plaintext and comes out as ciphertext, which is unreadable.   
 Since encryption is two-way, the data can be decrypted so it is readable again. Hashing, on the other hand, is one-way,   
@@ -55,26 +56,23 @@ A password-cracking program then compares the rainbow table's list of potential 
 If there's a match, the plaintext that produced the hash is retrieved and the process is stopped. With the correct hash,   
 the threat actor can now successfully access the device -- they've cracked the authentication process.
 
-![rainbow-table](../00_includes/SCREENSHOTS/Security/SEC-07_rainbowtable.png)
+![rainbow-table](../00_includes/Security/SEC6.0_rainbowtable.png)
 
 ###  Look up 2 hashes in a Rainbow Table.  
 
-![crack-hashes](../00_includes/SCREENSHOTS/Security/SEC-07_crack-hash.png)
+![crack-hashes](../00_includes/Security/SEC6.1_crack-hash.png)
 
 ### Create a new user in Linux with the password 12345. Look up the hash in a Rainbow Table.  
 
-![new-user](../00_includes/SCREENSHOTS/Security/SEC-07adduser.png)
+![new-user](../00_includes/Security/SEC6.3_add-user.png)
 
 ### Look up the hash in a Rainbow Table.
 
-![SHA512-hash](../00_includes/SCREENSHOTS/Security/SEC-07_sha512hash.png)
+![new-user-psswd-hash](../00_includes/Security/SEC6.4_hash-crackpng)
 
 ### Find a peer who has the same password in /etc/shadow, and compare hashes.
 
 #### As you can see below, the hashes are different due to the salting of the hash.
-
 Francois:  
-$6$VZEbpXbgMiw7XcZv$4fS9m3tA4HjGIBZHp/cctTvXg0fbqJEmdiVQyIvR8KM6Tl/uBz3owcJy6y4t9h6G7fNV2RP/dpmMBTLh/.ICj/  
+$6$gBa95eOliNzIOvsq$Ma0modoqPpAYS3atS/3I2i.4yqFgVnugkiteoiqrpS5.zCtGUQC4XpdS1.NV/0Ome/44QtDIGPSL165mk4/dL/
 
-Sinan Konak:  
-$6$YUCZcsZfVOA3cyvt$K0OXmhet0EJEYK929ORQK85NNZ6fskbcT4vvZsVUsvni7oIifEfm4bURxCEJj8aO8cE./.Q5Z2z6hm5fKKP2r0  
