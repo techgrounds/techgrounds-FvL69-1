@@ -68,11 +68,13 @@ the threat actor can now successfully access the device -- they've cracked the a
 
 ### Look up the hash in a Rainbow Table.
 
-![new-user-psswd-hash](../00_includes/Security/SEC6.4_hash-crackpng)
+![new-user-psswd-hash](../00_includes/Security/SEC6.4_hash-crack.png)
 
 ### Find a peer who has the same password in /etc/shadow, and compare hashes.
 
 #### As you can see below, the hashes are different due to the salting of the hash.
 Francois:  
-$6$gBa95eOliNzIOvsq$Ma0modoqPpAYS3atS/3I2i.4yqFgVnugkiteoiqrpS5.zCtGUQC4XpdS1.NV/0Ome/44QtDIGPSL165mk4/dL/
+$6$gBa95eOliNzIOvsq$Ma0modoqPpAYS3atS/3I2i.4yqFgVnugkiteoiqrpS5.zCtGUQC4XpdS1.NV/0Ome/44QtDIGPSL165mk4/dL/  
 
+Jared:  
+$6$em/RM4xaNeTtQYn5$mk3gEZ.pBx00CDywbmODTId010adKdUPwXi5/Xz/aQWw9Dp.WHM05k3g7rnGE6eXTLlrC3IfqCFJBI3Db3UCe0  

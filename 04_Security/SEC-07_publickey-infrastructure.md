@@ -4,6 +4,10 @@ Public Key Infrastructure (PKI) is a set of roles, policies, hardware, software 
 create, manage, distribute, use, store and revoke digital certificates and manage public-key encryption.  
 It consists of three entities that assure you can communicate securely over an insecure network like the public internet.  
 
+TLS, or “transport layer security” — and its predecessor SSL — are protocols used to wrap normal traffic in a protected,   
+encrypted wrapper. Using this technology, servers can safely send information to their clients without their messages being   
+intercepted or read by an outside party.
+
 
 ## KEY-TERMS:
 
@@ -55,18 +59,12 @@ It consists of three entities that assure you can communicate securely over an i
 ![virt-host-conf](../00_includes/Security/SEC7.5_virthost-conf.png)
 
 #### Enable config file and do a config test.  
-![conf-test](../00_includes/Security/SEC7.6-config-test.png)  
+![conf-test](../00_includes/Security/SEC7.6-enable-conf-file.png)  
+![conf-test](../00_includes/Security/SEC7.7-config_test.png)
 
-![selfsigned-certificate](../00_includes/SCREENSHOTS/Security/SEC-06-1.1_creating_certificate.png)
+#### VM's trusted certificate roots list.
 
-
-![verification-CSR](../00_includes/SCREENSHOTS/Security/SEC-06-1.2_certificate.png)
-
-![certificate-key](../00_includes/SCREENSHOTS/Security/SEC-06-1.3_certificate.key.png)
-
-#### Trusted certificate roots list.
-
-![trusted-certificate-roots-list](../00_includes/Security/SEC7.4-VM-trusted-crt-list.png)
+![trusted-certificate-roots-list](../00_includes/Security/SEC7.44_VM-trusted-crt-list.png)
 
 
 
