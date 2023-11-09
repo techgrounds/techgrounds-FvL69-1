@@ -60,7 +60,10 @@ intercepted or read by an outside party.
 
 #### Enable config file and do a config test.  
 ![conf-test](../00_includes/Security/SEC7.6-enable-conf-file.png)  
-![conf-test](../00_includes/Security/SEC7.7-config_test.png)
+![conf-test](../00_includes/Security/SEC7.7-config_test.png)  
+
+#### The webpage as configured with self-signed ssl certificate.
+![webpage](../00_includes/Security/SEC7.8_webpage.png)  
 
 #### VM's trusted certificate roots list.
 
