@@ -61,12 +61,12 @@ These ciphers provide secure encryption and play a crucial role in safeguarding 
 
 ## Try to think of a way to share an encryption key.
 
-#### In the Diffie-Hellman protocol, two entities agree on using two values: the first value (p) is a prime number consisting of the modulo of a multiplicative group of integers, and the second value (g) is a primitive root modulo of the first value. Using a big prime number secures the sharing of the key to encrypt and decrypt.   
-
 ### The best way of sending a symmetric key is, in my opinion, using a key encapsulation mechanism. 
-In practice, one of the entities involved in communication creates the symmetric key and encrypts it using a public key provided by a second entity. Then, the first entity sends the encoded symmetric key to the second entity, which receives and decrypts it with the adequate private key.
+In practice, one of the entities involved in communication creates the symmetric key and encrypts it using a public key provided by a second entity.  
+Then, the first entity sends the encoded symmetric key to the second entity, which receives and decrypts it with the adequate private key.  
 
-In addition to simply encoding the symmetric key with a public key, the first entity can also sign the symmetric key with a private key. Thus, the first entity also provides a public key to the second one, enabling it to check the authenticity of the received symmetric key.  
+In addition to simply encoding the symmetric key with a public key, the first entity can also sign the symmetric key with a private key.  
+Thus, the first entity also provides a public key to the second one, enabling it to check the authenticity of the received symmetric key.    
 
 ![key-encapsulation](../00_includes/Security/SEC4.0.png)
 
@@ -75,7 +75,7 @@ In addition to simply encoding the symmetric key with a public key, the first en
 #### First: generate a key with AES generator. And use it to en/decrypt a message.  
 ![AES-key-generator](../00_includes/Security/SEC4.1.png)  
 
-#### Now generate public/private RSA keys and exchange public keys with your peer.  
+#### Now generate public/private key pair and exchange public keys with your peer.  
 ![generate-RSA-keys](../00_includes/Security\SEC5.0.png)  
 
 #### Encrypt AES key with peers public key with the RSA encryption tool.

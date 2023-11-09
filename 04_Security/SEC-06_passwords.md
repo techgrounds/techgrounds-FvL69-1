@@ -43,8 +43,9 @@ The short version: Encryption is reversable and Hashing is irreversable.
 
 Encryption is a two-way function where data is passed in as plaintext and comes out as ciphertext, which is unreadable.   
 Since encryption is two-way, the data can be decrypted so it is readable again. Hashing, on the other hand, is one-way,   
-meaning the plaintext is scrambled into a unique digest, through the use of a salt, that cannot be decrypted. Technically,  
-hashing can be reversed, but the computational power needed to decrypt it makes decryption infeasible.  
+meaning the plaintext is scrambled into a unique digest, through the use of a salt, that cannot be decrypted.  
+
+Technically, hashing can be reversed, but the computational power needed to decrypt it makes decryption infeasible.  
 
 ### How can a Rainbow Table be used to crack passwords.
 
