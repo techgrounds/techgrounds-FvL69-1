@@ -1,4 +1,4 @@
-# Retro van [groep] van week [n]
+# Retro van [NOOBS] van week [2/3]
 Scrum master: Geef iedereen 10 minuten om zijn antwoorden op deze vragen te bedenken. Schrijf daarna de antwoorden op. 
 
 Iedereen: Gebruik 10 minuten om de antwoorden te bedenken op de gegeven vragen. Bespreek de antwoorden met elkaar.
