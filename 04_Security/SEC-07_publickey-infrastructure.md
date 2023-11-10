@@ -62,12 +62,7 @@ intercepted or read by an outside party.
 ![conf-test](../00_includes/Security/SEC7.6-enable-conf-file.png)  
 ![conf-test](../00_includes/Security/SEC7.7-config_test.png)  
 
-#### The apache webpage, i didn't need to configure a new VirtalHost, it works on these already configured VH's.    
-![config](../00_includes/Security/SEC7.9_sites-available.png)
-![webpage](../00_includes/Security/SEC7.8_webpage.png)  
-
 #### VM's trusted certificate roots list.
-
 ![trusted-certificate-roots-list](../00_includes/Security/SEC7.44_VM-trusted-crt-list.png)
 
 
