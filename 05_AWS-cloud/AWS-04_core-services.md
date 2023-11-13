@@ -30,7 +30,7 @@ highly scalable, cost-effective applications in the cloud without worrying about
 ## ASSIGNMENT:
 
 Study:  
-* The AWS Certified Cloud Practitioner (CLF-C01) Exam Guide  
+* The AWS Certified Cloud Practitioner (CLF-C02) Exam Guide  
 
 ## USED RESOURCES:
 

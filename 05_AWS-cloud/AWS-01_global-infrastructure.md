@@ -38,7 +38,7 @@ None
 
 ## RESULT:
 
-![global-infrastructure](../00_includes/SCREENSHOTS/AWS/AWS-01_global-infr.str.png)
+![global-infrastructure](../00_includes/AWS/AWS-01_global-infr.str.png)
 
 #### What is a Region?  
 AWS Regions are physical locations around the world where Amazon clusters data centers for application   
@@ -46,7 +46,7 @@ and service delivery in AWS Availability Zones.
 
 Each Region is designed to be isolated from other regions, this achieves the greatest possible   
 fault tolerance and stability. Your account determines the Regions that are available to you.   
-When you launch an instance (EC2), you must select an AMI(see key-terms) that's in the same Region.   
+When you launch an instance (EC2), you must select an AMI(Amazon Machine Image) that's in the same Region.   
 
 #### What is an AWS Availability Zone?  
 Each Region has multiple, isolated locations known as Availability Zones. The code for Availability Zone is   
@@ -54,10 +54,13 @@ its Region code followed by a letter identifier. For example, us-east-1a.
 
 When you launch an instance, you select a Region and a virtual private cloud (VPC), and then you can select a subnet from one of the Availability Zones.     
 
-![AZ](../00_includes/SCREENSHOTS/AWS/AWS-01_AZ.png)  
+![AZ](../00_includes/AWS/AWS-01_AZ.png)  
 **Multiple Availability Zones in an AWS Region**  
 
-#### What is an Edge Location?  
+#### What is an Edge Location? 
+Edge location is a Content Delivery Network (CDN) endpoint for AWS to cache contents and reduce latency.   
+Edge Locations are usually deployed in major cities and highly populated areas across the globe.  
+
 AWS Edge Locations provide an additional layer of network infrastructure that provides these benefits to any web application   
 that uses Amazon CloudFront, Global Accelerator and Amazon Route 53. With these services, you can comprehensively protect   
 on the edge your applications running from AWS Regions.  

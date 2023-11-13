@@ -53,10 +53,11 @@ expenditure (opex). This can reduce cost by not spending money on capacity you d
 
 [always-free-services](https://blog.itpro.tv/7-always-free-aws-resources/)  
 
-## DIFFICULTIES:
+[billing-alert](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)
 
-I had to configure the region setting in my account from global to N.Virginia to be able to get billings under the alarm settings in the  
-cloudwatch alarm drop down menu. My region was set to global and the rest was greyed out. I corrected this in the _unified settings_ page.  
+## DIFFICULTIES:
+I had to configure the region setting in my account to N.Virginia to be able to get billings under the alarm settings in the  
+cloudwatch alarm drop down menu.   
 
 ## RESULT:  
 
@@ -72,7 +73,7 @@ Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing
 * You can use EC2 to launch as many or few virtual servers as you need, hence Elastic.  
 * EC2 reduces hardware costs so you can develop and deploy applications faster.  
 
-![EC2-instance](../00_includes/SCREENSHOTS/AWS/AWS-02_EC2-example.png)  
+![EC2-instance](../00_includes/AWS/AWS-02.2_EC2-example.png)  
 Diagram shows a basic architecture of an Amazon EC2 instance deployed within an Amazon Virtual Private Cloud (VPC).   
 
 #### Always free services.  
@@ -86,24 +87,22 @@ Listing some of them:
 * AWS CloudFormation is a model and provision all your cloud infrastructure resources with code to enable configuration compliance and faster troubleshooting.  
 
 #### Creating an alert  
-![creating-cost-alert](../00_includes/SCREENSHOTS/AWS/AWS-02_alert.png)
+![creating-cost-alert](../00_includes/AWS/AWS-02_alert.png)  
 
-**E-mail notification from AWS.**
-![E-mail_notification](../00_includes/SCREENSHOTS/AWS/AWS-02_E-mail-notification.png)  
+### Budgets, a more clear and comprehensive way of keeping tabs on costs and alerts.
+![creating-budgets-alert](../00_includes/AWS/AWS-02.1-budget.png)  
+
 
 #### Understand the options AWS offers to gain insight in cloud costs and usage.  
-_**Amazon Managed Grafana**_ is a fully managed, scalable, secure and highly available data visualization service that   
-enables customers to instantly query, correlate, and visualize operational metrics, logs, and traces for their   
-applications from multiple data sources. Amazon Managed Grafana is open source Grafana compatible and integrated   
-with AWS data sources that collect operational data, such as Amazon CloudWatch, Amazon OpenSearch Service, Amazon Athena   
-and Amazon Managed Service for Prometheus (AMP). Furthermore, it provides plug-ins to popular open-source databases,   
-third-party ISV monitoring tools, as well as other cloud services. With Amazon Managed Grafana you can easily visualize   
-information from multiple AWS services, AWS accounts, and Regions in a single Grafana dashboard.  
+_**AWS cost management**_   
+![AWS-cost_management](../00_includes/AWS/AWS-02_cost-management.png)  
 
-Other native services are: AWS Cost Explorer, AWS Budgets, and AWS Cost Anomaly Detection.  
+Other native services are: AWS Budgets, and AWS Cost Anomaly Detection.  
 
 #### The differences between capex and opex.  
 CAPEX and OPEX (see key-terms)  
+* CAPEX = Capital Expenditure; Money spent on fixed assets e.g. land, buildings and equipment by an organisation or business.
+* OPEX = Operational Expenditure; Money spent on ongoing costs such as wages or rent.
 
 The difference is that with CAPEX you have to invest in land to build your data center and you have to buy the servers you need.   
 Additional to that you'll require security to safeguard the premissis physically and digitally.  

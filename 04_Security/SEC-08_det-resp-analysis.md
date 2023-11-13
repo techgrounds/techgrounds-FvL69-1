@@ -50,7 +50,7 @@ and the entire process takes about 15 minutes.
 
 What is the RPO of the database?  
 
-**Answer:** 15 minutes
+**Answer:** MAX 24 uur
 
 An automatic failover to a backup web server has been configured for a website. Because the backup has to  
 be powered on first and has to pull the newest version of the website from GitHub, the process takes about 8 minutes.   
