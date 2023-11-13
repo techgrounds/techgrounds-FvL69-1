@@ -23,6 +23,7 @@ intercepted or read by an outside party.
 
 
 ## USED RESOURCES:
+[openssl-cookbook](https://www.feistyduck.com/library/openssl-cookbook/online/)
 
 [installing-ssl](https://www.atlantic.net/dedicated-server-hosting/how-to-create-and-install-a-self-signed-ssl-certificate-on-ubuntu-20-04/)
 
