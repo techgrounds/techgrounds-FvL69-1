@@ -1,8 +1,9 @@
 ## SECURITY GROUPS:
+Security Groups are stateful virtual firewalls that can be assigned to instances. They do not run in the OS, but rather in the VPC.  
+Security Groups only have allow rules. Everything not explicitly allowed is automatically implicitly denied.  
 
-Statefulness: NACLs are stateless and do not track the state of a connection, while Security Groups are stateful   
-and allow traffic based on the response to previous traffic. Default rule: NACLs have a default rule that denies   
-all traffic, while Security Groups have a default rule that allows all traffic.  
+A Network Access Control List (NACL) is a stateless firewall that runs on the subnet level in a VPC.  
+A NACL has both explicit allow and deny rules. By default, a NACL is configured to allow all traffic in and out of the network.  
 
 ## KEY-TERMS:
 
@@ -19,7 +20,7 @@ all traffic, while Security Groups have a default rule that allows all traffic.
 
 ## USED RESOURCES:
 
-[security-groups](https://docs.aws.amazon.com/vpc/latest/userguide/security-groups.html)  
+[security-groups](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)  
   
 [infrastructure-security](https://docs.aws.amazon.com/vpc/latest/userguide/infrastructure-security.html#VPC_Security_Comparison)  
 
@@ -32,10 +33,10 @@ None.
 ## RESULT:  
 
 **Comparing ACL's with Security Groups.**  
-![ACLvsSecGroup](../00_includes/SCREENSHOTS/AWS/AWS-08_ACLvsSecGR.png)  
+![ACLvsSecGroup](../00_includes/AWS/AWS-07.0_ACLvsSecGR.png)  
 
 **Layers of security.**  
-![layers-of-security](../00_includes/SCREENSHOTS/AWS/AWS-08_layers-of-sec.png)  
+![layers-of-security](../00_includes/AWS/AWS-07.1_layers-of-sec.png)  
 
 
 

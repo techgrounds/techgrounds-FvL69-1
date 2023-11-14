@@ -53,14 +53,16 @@ Terminate your instance.
 [connect-via-putty](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html)  
 
 ## DIFFICULTIES:
-
-Connecting via openSSH is not working for me so far.
+None.
 
 ## RESULT:
 
-#### EC2 details + login:  
+#### EC2 webserverSG: 
+![instance-details](../00_includes/AWS/AWS-06.0_ec2webserverSG.png)  
 
-![instance-details](../00_includes/SCREENSHOTS/AWS/AWS-06_ec2-details.png)
+#### webserverSG login:  
+![EC2-login](../00_includes/AWS/AWS-06.1-EC2login.png)  
 
-![EC2-login](../00_includes/SCREENSHOTS/AWS/AWS-06_ec2-login.png)  
+#### EC2 terminated.  
+![EC2-terminated](../00_includes/AWS/AWS-06.2-EC2terminated.png)
 
