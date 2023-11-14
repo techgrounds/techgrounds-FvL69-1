@@ -29,30 +29,37 @@ Share the bucket website endpoint with a peer. Make sure they are able to see th
 
 ## USED RESOURCES:
 exercise1:  
+#### Create a bucket.  
 [create-S3buckets-overview](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)  
-[creating_pre-signed_url](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html)  
+
+#### Upload a picture.  
+[creating_pre-signed_url](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ShareObjectPreSignedURL.html)   
+
 
 Exercise2:  
+[AWS-tutorial-static-website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
+
 [website-endpoint](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteEndpoints.html)  
-[read-permission](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html)
+
+[read-permission](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteAccessPermissionsReqd.html)  
 
 ## DIFFICULTIES:
-
-Finding the right tool to grand someone bucket access without changing acl's or writing policies.
+None.
 
 ## RESULT:
 
 ### Exercise 1:  
+![create-S3](../00_includes/AWS/AWS-5.0-S3bucket.png)  
 
-![presigned-URL](../00_includes/SCREENSHOTS/AWS/AWS-05_presigned-url.png)
+![presigned-URL](../00_includes/AWS/AWS-5.1-pre-signedurl.png)
 
-![accesss-granted](../00_includes/SCREENSHOTS/AWS/AWS-05_accessgranted.png)
+#### Screenshot van peer.  
+![accesss-granted](../00_includes/AWS/AWS-5.2-access-peer-to-bucket.png)
 
 ### Exercise 2:  
+#### New bucket with uploaded demo files.  
+![bucket-policy](../00_includes/AWS/AWS-5.3-demofiles.png)  
 
-#### Bucket policy for public access.  
-
-![bucket-policy](../00_includes/SCREENSHOTS/AWS/AWS-05_BucketPolicy.png)
-
-![static-web-site](../00_includes/SCREENSHOTS/AWS/AWS-05_staticWebSite.png)  
+#### Screenshot from Allard.    
+![static-web-site](../00_includes/AWS/AWS-5.4-static-website.png)  
 
