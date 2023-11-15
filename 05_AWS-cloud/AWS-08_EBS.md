@@ -31,15 +31,24 @@ Wait for its state to be available.
 * Mount the EBS volume on your instance.  
 * Create a text file and write it to the mounted EBS volume.
 
+#### Exercise 3:  
+* Create a snapshot of your EBS volume.  
+* Remove the text file from your original EBS volume.  
+* Create a new volume using your snapshot.  
+* Detach your original EBS volume.  
+* Attach the new volume to your EC2 and mount it.  
+* Find your text file on the new EBS volume.  
 
 
 ## USED RESOURCES:
 
 [creating-EBS-volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html)  
 
-[detaching-EBS-volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html)  
+[attach-EBS-volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html)  
 
 [make-a-volume-available-for-use_format-and-mount-an-attached-volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html)  
+
+[detaching-EBS-volume](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html)  
 
 [snapshots](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html)  
 
@@ -51,37 +60,29 @@ It was a little confusing how to write to the EBS volume.
 
 ### Exercise1:  
 
-**New EC2 instance.**  
-![new-EC2-instance](../00_includes/SCREENSHOTS/AWS/AWS-07_newEC2instance.png)
+#### New EC2 instance.  
+![new-EC2-instance](../00_includes/AWS-01/AWS-08.0-newinstance.png)
+
+#### EBS-volume    
+![EBS-volume](../00_includes/AWS-01/AWS-08.1-EBSvolume.png)
 
 ### Exercise2:  
+#### Attach EBS-volume to EC2 instance.
+![attached-volume](../00_includes/AWS-01/AWS-08.2-atached-volume.png)  
 
-**Attached and logged in.**
-![attached and logged in](../00_includes/SCREENSHOTS/AWS/AWS-07_attached-and-login.png)  
+#### Logging in.    
+![logged in](../00_includes/AWS-01/AWS-08.3-newLogin.png)  
 
-**File system check.**  
-![file-system-check](../00_includes/SCREENSHOTS/AWS/AWS-07_filesystem-check.png)  
-
-**Creating file system on xvdf disk.**  
-![creating-file-sys](../00_includes/SCREENSHOTS/AWS/AWS-07_created-file-sys.png)  
-
-**EBS volume xvdf mounted on /data.**  
-![volume-mounted](../00_includes/SCREENSHOTS/AWS/AWS-07_volume-mounted.png)  
-
-**Write to EBS volume.**  
-![write-to-volume](../00_includes/SCREENSHOTS/AWS/AWS-07_write-to-EBSvol..png)  
-
+#### Mount the EBS volume on your instance. Create a text file and write it to the mounted EBS volume  
+![mounted-volume-txtfile](../00_includes/AWS-01/AWS-08.4-mountedvolume.png)
 
 ### Exercise3:  
+#### Create a snapshot of EBS volume.
+![EBS-snapshot](../00_includes/AWS-01/AWS-08.5-EBSsnapshot.png) 
 
-**New volume created from snapshot.**  
-![created-new-volume-from-snapshot](../00_includes/SCREENSHOTS/AWS/AWS-07_snapshot-new-vol.png)  
+#### Create a new volume using your snapshot.  
+![new-volume-from-snapshot](../00_includes/AWS-01/AWS-08.7-new-volume-from-snapshot.png)  
 
-**Snapshot EBS volume attached to EC2 instance.**  
-![snapshot-attached](../00_includes/SCREENSHOTS/AWS/AWS-07_snap-attached.png)  
-
-**file.txt not in snapshot recovery.**  
-![file.txt-gone](../00_includes/SCREENSHOTS/AWS/AWS-07_data-lost.png)  
-
-
+#### Detach original volume. (root)  
+![detach-root-volume](../00_includes/AWS-01/AWS-08.6-detach-original.png)    
 
