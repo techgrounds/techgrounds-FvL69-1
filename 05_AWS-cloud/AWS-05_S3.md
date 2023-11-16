@@ -49,17 +49,17 @@ None.
 ## RESULT:
 
 ### Exercise 1:  
-![create-S3](../00_includes/AWS/AWS-5.0-S3bucket.png)  
+![create-S3](../00_includes/AWS-01/AWS-5.0-S3bucket.png)  
 
-![presigned-URL](../00_includes/AWS/AWS-5.1-pre-signedurl.png)
+![presigned-URL](../00_includes/AWS-01/AWS-5.1-pre-signedurl.png)
 
 #### Screenshot van peer.  
-![accesss-granted](../00_includes/AWS/AWS-5.2-access-peer-to-bucket.png)
+![accesss-granted](../00_includes/AWS-01/AWS-5.2-access-peer-to-bucket.png)
 
 ### Exercise 2:  
 #### New bucket with uploaded demo files.  
-![bucket-policy](../00_includes/AWS/AWS-5.3-demofiles.png)  
+![bucket-policy](../00_includes/AWS-01/AWS-5.3-demofiles.png)  
 
 #### Screenshot from Allard.    
-![static-web-site](../00_includes/AWS/AWS-5.4-static-website.png)  
+![static-web-site](../00_includes/AWS-01/AWS-5.4-static-website.png)  
 

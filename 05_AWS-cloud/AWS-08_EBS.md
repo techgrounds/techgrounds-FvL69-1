@@ -53,8 +53,7 @@ Wait for its state to be available.
 [snapshots](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html)  
 
 ## DIFFICULTIES:
-
-It was a little confusing how to write to the EBS volume.  
+Not really, just had to practice a bit with EC2 and get familiar with volumes, snapshots and mounting in the CLI.  
 
 ## RESULT:
 
@@ -70,19 +69,17 @@ It was a little confusing how to write to the EBS volume.
 #### Attach EBS-volume to EC2 instance.
 ![attached-volume](../00_includes/AWS-01/AWS-08.2-atached-volume.png)  
 
-#### Logging in.    
-![logged in](../00_includes/AWS-01/AWS-08.3-newLogin.png)  
-
 #### Mount the EBS volume on your instance. Create a text file and write it to the mounted EBS volume  
-![mounted-volume-txtfile](../00_includes/AWS-01/AWS-08.4-mountedvolume.png)
+![mounted-volume-txtfile](../00_includes/AWS-01/AWS-08.3-mountvolum_txtfile.png)
 
 ### Exercise3:  
 #### Create a snapshot of EBS volume.
-![EBS-snapshot](../00_includes/AWS-01/AWS-08.5-EBSsnapshot.png) 
+![EBS-snapshot](../00_includes/AWS-01/AWS-08.4-EBSsnapshot.png) 
 
 #### Create a new volume using your snapshot.  
-![new-volume-from-snapshot](../00_includes/AWS-01/AWS-08.7-new-volume-from-snapshot.png)  
+![new-volume-from-snapshot](../00_includes/AWS-01/AWS-08.5-new-volume-from-snapshot.png)  
 
-#### Detach original volume. (root)  
-![detach-root-volume](../00_includes/AWS-01/AWS-08.6-detach-original.png)    
+#### Detach original volume and attach snapshot volume.  
+#### Is the text file still there?  
+![detach-root-volume](../00_includes/AWS-01/AWS-08.6-snap_vol-attached.png)      
 
