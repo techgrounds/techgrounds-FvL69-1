@@ -38,7 +38,7 @@ None
 
 ## RESULT:
 
-![global-infrastructure](../00_includes/AWS/AWS-01_global-infr.str.png)
+![global-infrastructure](../00_includes/AWS-01/AWS-01_global-infr.str.png)
 
 #### What is a Region?  
 AWS Regions are physical locations around the world where Amazon clusters data centers for application   
@@ -54,7 +54,7 @@ its Region code followed by a letter identifier. For example, us-east-1a.
 
 When you launch an instance, you select a Region and a virtual private cloud (VPC), and then you can select a subnet from one of the Availability Zones.     
 
-![AZ](../00_includes/AWS/AWS-01_AZ.png)  
+![AZ](../00_includes/AWS-01/AWS-01_AZ.png)  
 **Multiple Availability Zones in an AWS Region**  
 
 #### What is an Edge Location? 

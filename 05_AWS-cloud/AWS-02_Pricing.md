@@ -56,8 +56,7 @@ expenditure (opex). This can reduce cost by not spending money on capacity you d
 [billing-alert](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html)
 
 ## DIFFICULTIES:
-I had to configure the region setting in my account to N.Virginia to be able to get billings under the alarm settings in the  
-cloudwatch alarm drop down menu.   
+None.  
 
 ## RESULT:  
 
@@ -73,7 +72,7 @@ Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing
 * You can use EC2 to launch as many or few virtual servers as you need, hence Elastic.  
 * EC2 reduces hardware costs so you can develop and deploy applications faster.  
 
-![EC2-instance](../00_includes/AWS/AWS-02.2_EC2-example.png)  
+![EC2-instance](../00_includes/AWS-01/AWS-02.2_EC2-example.png)  
 Diagram shows a basic architecture of an Amazon EC2 instance deployed within an Amazon Virtual Private Cloud (VPC).   
 
 #### Always free services.  
@@ -87,15 +86,15 @@ Listing some of them:
 * AWS CloudFormation is a model and provision all your cloud infrastructure resources with code to enable configuration compliance and faster troubleshooting.  
 
 #### Creating an alert  
-![creating-cost-alert](../00_includes/AWS/AWS-02_alert.png)  
+![creating-cost-alert](../00_includes/AWS-01/AWS-02_alert.png)  
 
 ### Budgets, a more clear and comprehensive way of keeping tabs on costs and alerts.
-![creating-budgets-alert](../00_includes/AWS/AWS-02.1-budget.png)  
+![creating-budgets-alert](../00_includes/AWS-01/AWS-02.1-budget.png)  
 
 
 #### Understand the options AWS offers to gain insight in cloud costs and usage.  
 _**AWS cost management**_   
-![AWS-cost_management](../00_includes/AWS/AWS-02_cost-management.png)  
+![AWS-cost_management](../00_includes/AWS-01/AWS-02_cost-management.png)  
 
 Other native services are: AWS Budgets, and AWS Cost Anomaly Detection.  
 
