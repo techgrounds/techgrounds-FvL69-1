@@ -51,6 +51,17 @@ Amazon CloudWatch is basically a metrics repository. An AWS service—such as Am
 and you retrieve statistics based on those metrics. If you put your own custom metrics into the repository, you can retrieve   
 statistics on these metrics as well.  
 
-![CloudWatch-pic](CW-Overview.png)  
+![CloudWatch-pic](../00_includes/AWS-03/AWS-2.0.CloudWatchPic.png)  
 
 ### Amazon CloudWatch can be accessed via API, command-line interface, AWS SDKs, and the AWS Management Console.  
+
+### Creating a CloudWatch dashboard.  
+![dashboard-setup](../00_includes/AWS-03/AWS-2.1-dashboard.png)  
+
+### Empty dashboard.
+![example-dashboard](../00_includes/AWS-03/AWS-2.2-example.png)  
+
+### Add widget page.  
+![widget-page](../00_includes/AWS-03/AWS-2.3-add-widget.png)  
+
+
