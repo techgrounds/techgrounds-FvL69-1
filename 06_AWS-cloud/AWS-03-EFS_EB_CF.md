@@ -6,7 +6,13 @@ Some services need to be enabled and configured once, others you only need to kn
 * EFS = Amazon Elastic File System (Amazon EFS) provides a simple, scalable, fully managed elastic   
   NFS file system for use with AWS Cloud services, e.g EC2, and on-premises resources. 
 * RDS/AURORA = Amazon Aurora is a fully managed relational database engine that's compatible with MySQL and PostgreSQL.  
-* 
+* EB = Elastic Beanstalk, you can quickly deploy and manage applications in the AWS Cloud without having to learn about the infrastructure that runs those applications.  
+  Elastic Beanstalk reduces management complexity without restricting choice or control. You simply upload your application, and Elastic Beanstalk   
+  automatically handles the details of capacity provisioning, load balancing, scaling, and application health monitoring.  
+* CF = CloudFront is a web service that speeds up distribution of your static and dynamic web content, such as .html, .css, .js, and image files, to your users.  
+* R53 = Route 53 is a highly available and scalable Domain Name System (DNS) web service. You can use Route 53 to perform three main functions in any combination:   
+  domain registration, DNS routing, and health checking.  
+
 
 ## Assignment:   
     Gain practical experience with:  
@@ -18,17 +24,27 @@ Some services need to be enabled and configured once, others you only need to kn
         Route53  
 
 ### Used sources:   
+[EFS-how-it-works](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html)   
 [create-EFS](https://docs.aws.amazon.com/efs/latest/ug/getting-started.html)    
 
 [what-is-RDS](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)    
+[you-tube-aurora](https://www.youtube.com/watch?v=vw5EO5Jz8-8)  
 
+[elastic-beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/GettingStarted.html)  
 
+[cloudfront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)   
+
+[R53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)  
 
 ### Encountered problems:   
-[Geef een korte beschrijving van de problemen waar je tegenaan bent gelopen met je gevonden oplossing.]
+Couldn't connect to database with pgAdmin
+
 
 ### Result:  
 ## EFS  
+![efs-architecture](../00_includes/AWS-02/AWS-03.0.0-EFS-architecture.png)
+
+
 There are four steps that you need to perform to create and use your first Amazon EFS file system:  
 
 * Create your Amazon EFS file system.  
@@ -48,4 +64,9 @@ There are four steps that you need to perform to create and use your first Amazo
 
 
 ### RDS/Aurora  
+#### Created database  
+![database-1](../00_includes/AWS-02/AWS-03.3-db1.png)  
+
+### Elastic Beanstalk  
+
 

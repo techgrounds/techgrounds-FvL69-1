@@ -1,5 +1,10 @@
-# [Onderwerp]
-[Geef een korte beschrijving van het onderwerp]
+# ELB and AutoScaling  
+Elastic Load Balancing automatically distributes your incoming traffic across multiple targets, such as EC2 instances,   
+containers, and IP addresses, in one or more Availability Zones. It monitors the health of its registered targets,    
+and routes traffic only to the healthy targets.   
+
+AWS Auto Scaling monitors your applications and automatically adjusts capacity to maintain steady, predictable performance at the   
+lowest possible cost. Using AWS Auto Scaling, it's easy to setup application scaling for multiple resources across multiple services in minutes.  
 
 ## Key-terms
 [Schrijf hier een lijst met belangrijke termen met eventueel een korte uitleg.]
