@@ -29,3 +29,5 @@ minimal once. Each assignment will be designated as theoretical or practical.
     Trusted Advisor  
     AWS Config  
     AWS CloudTrail  
+
+    
