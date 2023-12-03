@@ -23,7 +23,7 @@ minimal once. Each assignment will be designated as theoretical or practical.
     DynamoDB  
     Lambda  
     SNS, SQS, Event Bridge  
-## Gain theoratical knowledge of:
+## Gain theoretical knowledge of:
     ECS  
     AWS Support Plans  
     Trusted Advisor  

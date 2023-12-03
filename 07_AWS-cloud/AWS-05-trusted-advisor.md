@@ -72,3 +72,4 @@ What is the difference between AWS Trusted Advisor and AWS systems manager?
 
 The performance, security, and reliability checks from AWS Trusted Advisor will all be combined by *Systems Manager Explorer* service.   
 AWS Trusted Advisor Explorer will aggregate only cost optimization suggestions after the examination.  
+
