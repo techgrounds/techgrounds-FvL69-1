@@ -1,4 +1,4 @@
-# AWS Trusted Advisor (theoratical assignment)  
+# AWS Trusted Advisor (theoretical assignment)  
 #### What is a trusted advisor?  
 A trusted advisor is an individual or a company that works collaboratively with their clients as a strategic partner.   
 Harnessing extensive knowledge and experience, trusted advisors provide advice and guidance tailored to a firm's needs and objectives over time.    
