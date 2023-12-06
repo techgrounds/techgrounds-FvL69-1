@@ -48,14 +48,20 @@ You can add two-factor authentication to your account and to individual users fo
 
 #### and more...
 
+### Group plus permission policy. 
+![group-policy](../00_includes/AWS-03/AWS-1.0-group-policy.png)  
+
+### Added IAM user.
+![add-iam-user](../00_includes/AWS-03/AWS-1.1-add-AIM-user.png)
+
+### MFA for sudo
+![mfa-sudo](../00_includes/AWS-03/AWS-1.2-mfa-sudo.png)
+
 ### IAM user 'SUDO' login.  
-![signing-in-IAM](../00_includes/AWS-03/AWS-01.0-SigninIAMuser.png)  
+![signing-in-IAM](../00_includes/AWS-03/AWS-1.3-SigninIAMuser.png)  
 
 #### With MFA AuthN feature enabled.  
-![MFA-feature](../00_includes/AWS-03/AWS-01.1-MFA-Auth.png)  
-
-#### User has CloudShellFullAccess policy for working in the CLI. 
-![CLI](../00_includes/AWS-03/AWS-01.2-IAM-user.png)    
+![MFA-feature](../00_includes/AWS-03/AWS-1.4-MFA-Auth.png)  
 
 
 
