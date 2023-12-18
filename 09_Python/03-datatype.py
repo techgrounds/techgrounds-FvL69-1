@@ -18,7 +18,7 @@ print('b + d =', x)
 
 
 # Exercise 2
-# Use the input() function to get input from the user
+# Use the input() function to get input from the user and check the data type of the outcome.
 x = input("Enter a number between 0 and 10: ")
 print(f"The number you've entered is: {x}")
 print(type(x))
