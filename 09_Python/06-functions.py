@@ -1,4 +1,3 @@
-from platform import java_ver
 from random import randint
 
 print("Exercise 1")

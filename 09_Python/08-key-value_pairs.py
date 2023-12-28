@@ -17,3 +17,7 @@ for x in dict.keys():
     dict[x] = i
 
 print(dict)
+
+print()
+import csv 
+# Write the dict content to a csv file. 
