@@ -34,6 +34,7 @@ dict_list.append(dict.copy())
 
 file_csv = "dict.csv"
 try:
+    # Opening the csv file this time with 'a' instead of 'w' to prevent overwriting the content.
     with open(file_csv, 'a') as csv_file:
         linker = csv.DictWriter(csv_file, fieldnames = csv_header)
         linker.writeheader()
