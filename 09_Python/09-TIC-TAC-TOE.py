@@ -78,8 +78,8 @@ def checkForWinner():
     
     # Diagonal check, top left to bottom right.
     checkbox = []
-    for p in range(len(board)):
-        if board[p][p] != "-":
+    for n in range(len(board)):
+        if board[n][n] != "-":
             checkbox.append(board[p][p])
     # Checking box for match.
     if checkbox == ["X","X","X"]:
