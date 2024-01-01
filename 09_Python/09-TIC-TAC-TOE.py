@@ -80,7 +80,7 @@ def checkForWinner():
     checkbox = []
     for n in range(len(board)):
         if board[n][n] != "-":
-            checkbox.append(board[p][p])
+            checkbox.append(board[n][n])
     # Checking box for match.
     if checkbox == ["X","X","X"]:
         print("\n X WINS!!! \n")
