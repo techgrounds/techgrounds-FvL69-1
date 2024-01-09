@@ -7,7 +7,7 @@ Assignment orientation, documentation setup in Github, tool exploration Jira and
 1. Jira is new to me, not sure how to incorporate and use it in the workflow yet.
 2. Getting familiar with the user stories concept.
 
-## Solucions
+## Solutions
 1. Watching you tube videos about the Jira tool to get insight.
 2. Discussing the user stories with my team mates.
 
