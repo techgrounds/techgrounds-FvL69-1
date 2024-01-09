@@ -12,4 +12,4 @@ Assignment orientation, documentation setup in Github, tool exploration Jira and
 2. Discussing the user stories with my team mates.
 
 ## Learnings 
-Just trying to establish an overall comprehension of how to approach this final project.
+Just trying to establish an overall comprehension on how to approach this final project.
