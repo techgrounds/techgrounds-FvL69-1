@@ -1,4 +1,4 @@
-# User Stories: story 2: overview missing services
+# User Stories: story 2: overview services
 
 ## Epic: 
 Exploration
@@ -10,4 +10,13 @@ which services are missing to complete the design.
 ## Deliverable:
 Make an overview of these services.
 
-## Missing services:
+## Overview existing and missing services:
+* Existing services:
+    * 
+
+
+
+* Missing services:
+    * IAM
+    * AD
+    * SQL relational database
