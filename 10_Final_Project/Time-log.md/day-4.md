@@ -5,9 +5,11 @@ YouTube tutorial AWS CDK v2 Project setup and configuration for deployment in Cl
 map all relevant data for project and how to implement this in Jira. (sprint)
 
 ## Obstacles
-Ordering the project data and implement it in Jira.
+Ordering the project data 
 
 ## Solucions
-Watch YouTube video on Jira.
+Data stored in Jira and Github.
+https://www.youtube.com/watch?v=Vjkac2gfKuo  (AWS CDK tutorial)
 
 ## Learnings 
+Completed tutorial on AWS CDK 
