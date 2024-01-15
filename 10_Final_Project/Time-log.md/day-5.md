@@ -1,6 +1,5 @@
 # Log [15-01-2024]
 
-
 ## DailyReport (1 sentence)
 Initiate CDK app template for Build v1.0 + study AWS CDK and adjusted architectural design.
 
@@ -12,3 +11,4 @@ Workshop on CDK: https://cdkworkshop.com/30-python/30-hello-cdk/200-lambda.html
 
 ## Learnings 
 CDK init, activating venv, project structure, CDK synth, CDK deploy and examening result in AWS CloudFormation.
+Learned about AWS Construct library
