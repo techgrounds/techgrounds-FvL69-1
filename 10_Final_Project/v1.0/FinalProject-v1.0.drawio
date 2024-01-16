@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-16T07:57:01.732Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="t1rFQnjq7SODiaTnSvSC" version="22.1.18" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-16T19:05:49.380Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="2hy2qUEZhXWZMiPGZslE" version="22.1.19" type="github">
   <diagram name="Pagina-1" id="PJHqQeVscJE3fAsvbVZz">
     <mxGraphModel dx="2704" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -94,7 +94,7 @@
         <mxCell id="Sj0KoQw-8R_YdXfJVcrg-42" value="" style="outlineConnect=0;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;shape=mxgraph.aws3.vpc_nat_gateway;fillColor=#F58536;gradientColor=none;" parent="nFN0qH9Q3qQGWHZ8weUC-1" vertex="1">
           <mxGeometry x="11" y="410" width="39" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="Sj0KoQw-8R_YdXfJVcrg-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.864;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nFN0qH9Q3qQGWHZ8weUC-11" edge="1" target="Sj0KoQw-8R_YdXfJVcrg-86">
+        <mxCell id="Sj0KoQw-8R_YdXfJVcrg-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.864;entryY=1.033;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="nFN0qH9Q3qQGWHZ8weUC-11" target="Sj0KoQw-8R_YdXfJVcrg-86" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-1200" y="1340" as="targetPoint" />
             <mxPoint x="-1273" y="1220" as="sourcePoint" />
@@ -175,6 +175,9 @@
         </mxCell>
         <mxCell id="Sj0KoQw-8R_YdXfJVcrg-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="Sj0KoQw-8R_YdXfJVcrg-87" target="nFN0qH9Q3qQGWHZ8weUC-11" edge="1">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KPopFSbUGK39HecRnWOT-2" value="AWS&#xa;CloudTrail" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.cloudtrail;" vertex="1" parent="1">
+          <mxGeometry x="-1362.26" y="840" width="42.26" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
