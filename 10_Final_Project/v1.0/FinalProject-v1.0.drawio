@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-21T20:10:08.385Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="81P04kz-j_3_ESLx2jq9" version="22.1.21" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-21T20:10:32.189Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="4tNuB8EeuL1W8yI_xi2_" version="22.1.21" type="github">
   <diagram name="Pagina-1" id="PJHqQeVscJE3fAsvbVZz">
     <mxGraphModel dx="2704" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -208,7 +208,7 @@
           <mxGeometry x="123.5" y="125" width="42" height="30" as="geometry" />
         </mxCell>
         <mxCell id="VpXMpqJgnysS3OqA2jy1-3" value="Private RT" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_table;" parent="Sj0KoQw-8R_YdXfJVcrg-43" vertex="1">
-          <mxGeometry x="20" y="110" width="60" height="60" as="geometry" />
+          <mxGeometry x="20" y="100" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Sj0KoQw-8R_YdXfJVcrg-47" value="Subnet:ACL" style="shape=mxgraph.ibm.box;prType=subnet;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=#E6F0E2;rounded=0;whiteSpace=wrap;html=1;strokeColor=#00882B;strokeWidth=1;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="120" y="140" width="280" height="280" as="geometry" />
