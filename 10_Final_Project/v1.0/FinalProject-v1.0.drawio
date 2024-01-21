@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-21T20:10:32.189Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="4tNuB8EeuL1W8yI_xi2_" version="22.1.21" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-21T20:11:01.519Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0" etag="cQgfDhSoV2oO9CW68AJ_" version="22.1.21" type="github">
   <diagram name="Pagina-1" id="PJHqQeVscJE3fAsvbVZz">
     <mxGraphModel dx="2704" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -181,7 +181,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="_0UyvHpJM2_UYdEt7BVN-19" value="Availability Zone 1b" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
-          <mxGeometry x="460" y="60" width="330" height="410" as="geometry" />
+          <mxGeometry x="460" y="50" width="330" height="430" as="geometry" />
         </mxCell>
         <mxCell id="Sj0KoQw-8R_YdXfJVcrg-43" value="Subnet:ACL" style="shape=mxgraph.ibm.box;prType=subnet;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=#E6F0E2;rounded=0;whiteSpace=wrap;html=1;strokeColor=#00882B;strokeWidth=1;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="490" y="140" width="280" height="280" as="geometry" />
@@ -247,7 +247,7 @@
           <mxGeometry x="398" y="552" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="_0UyvHpJM2_UYdEt7BVN-17" value="Availability Zone 1a" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
-          <mxGeometry x="100" y="60" width="310" height="410" as="geometry" />
+          <mxGeometry x="100" y="50" width="310" height="430" as="geometry" />
         </mxCell>
         <mxCell id="r2skP4YST0uJ2uLN2XHx-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PVbMBeRZzMBnVaOnaRQ2-1" target="PVbMBeRZzMBnVaOnaRQ2-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
