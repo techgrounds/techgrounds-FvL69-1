@@ -4,10 +4,10 @@ VPC2 = 'vpc2'
 INTERNET_GATEWAY_2 = 'IGW2'
 
 # route tables vpc2.
-PUBLIC_ROUTE_TABLE_2 = 'public-RT'
-PRIVATE_ROUTE_TABLE_2 = 'private-RT'
+PUBLIC_ROUTE_TABLE_2 = 'public-RT-2'
+PRIVATE_ROUTE_TABLE_2 = 'private-RT-2'
 
-ROUTE_TABLES_ID_TO_ROUTES_MAP = {
+ROUTE_TABLES_ID_TO_ROUTES_MAP_2 = {
     PUBLIC_ROUTE_TABLE_2: [
         {
             'destination_cidr_block': '0.0.0.0/0',
