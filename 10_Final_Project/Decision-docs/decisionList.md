@@ -10,7 +10,9 @@
 * Used IP ranges: 10.10.10.0/24 and 10.20.20.0/24 
 * All subnets must have a firewall on subnet lvl; NACL on each subnet.
 * SSH or RDP connections with Webserver: Only allowed from Admin Server.
+
+
 * Sugestions on architecture:
     * Using 1 region (Frankfurt) instead of 2 as described in by the assignment provided architecture.
-    * 1 VPC (configured with required CIDR block)
-    * 2 AZ's with 2 subnets each. (public and private subnet in each AZ)
+    * 2 VPCs configured with required address space (CIDR block)
+    * 2 AZ's with 1 subnet each. (public and private)

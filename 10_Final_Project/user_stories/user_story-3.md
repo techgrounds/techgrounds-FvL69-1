@@ -20,5 +20,4 @@ Make an overview of these services.
 
 * Missing services:
     * IAM
-    * AD
     * SQL relational database
