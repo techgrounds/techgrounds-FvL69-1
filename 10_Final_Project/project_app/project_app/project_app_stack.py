@@ -23,18 +23,52 @@ class ProjectAppStack(Stack):
             enable_dns_support=True,
         )
 
-        self.subnet_id_to_subnet_map = {}
-        self.route_table_id_to_route_table_map = {}
+        # Creating vpc2.
+        self.vpc2 = ec2.Vpc(
+            self,
+            config.VPC2,
+            # 'IpAddresses' configures the IP range and size of the entire VPC.
+            ip_addresses=ec2.IpAddresses.cidr('10.20.20.0/25'),
+            max_azs=2,
+            subnet_configuration=[],
+            nat_gateways=0,
+            enable_dns_hostnames=True,
+            enable_dns_support=True,
+        )
+
+        # Create vpc peering.
+        self.vpc_peering_connection = ec2.CfnVPCPeeringConnection(
+            self,
+            f"{config.VPC1}<-->{config.VPC2}",
+            peer_vpc_id=self.vpc2.vpc_id,
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': f'vpc_peering_connection'}]
+        )
+
+        # vpc1.
+        self.subnet_id_to_subnet_map_1 = {}
+        self.route_table_id_to_route_table_map_1 = {}
 
         self.create_subnets_vpc1()
+        self.internet_gateway_1 = self.attach_internet_gateway_1()
+
         self.elastic_ip = ec2.CfnEIP(self, "EIP")
-        self.internet_gateway = self.attach_internet_gateway()
         self.nat_gateway = self.create_nat_gateway()
         self.nat_gateway.add_dependency(self.elastic_ip)
 
+        # vpc2
+        self.subnet_id_to_subnet_map_2 = {}
+        self.route_table_id_to_route_table_map_2 = {}
+
+        self.create_subnets_vpc2()
+        self.internet_gateway_2 = self.attach_internet_gateway_2()
+        
+        # vpc1 and vpc2.
         self.create_route_tables()
-        self.create_subnet_route_tables_association()
-        self.create_routes()
+        self.create_subnet_route_tables_associations()
+
+        self.create_routes_vpc1()
+        self.create_routes_vpc2()
 
 
     # Create subnets for vpc1.
@@ -50,70 +84,139 @@ class ProjectAppStack(Stack):
                 map_public_ip_on_launch=subnet_config['map_public_ip_on_launch'],
                 tags=[{'key': "Name", 'value': subnet_id}]
             )  
-            self.subnet_id_to_subnet_map[subnet_id] = subnet
+            self.subnet_id_to_subnet_map_1[subnet_id] = subnet
+
+    # Create subnets for vpc2.
+    def create_subnets_vpc2(self):
+        ''' Create subnets for vpc2 '''
+        for subnet_id, subnet_config in config.SUBNET_CONFIGURATION_2.items():
+            subnet = ec2.CfnSubnet(
+                self,
+                subnet_id,
+                vpc_id=self.vpc2.vpc_id, 
+                availability_zone=subnet_config['availability_zone'],
+                cidr_block=subnet_config['cidr_block'],
+                map_public_ip_on_launch=subnet_config['map_public_ip_on_launch'],
+                tags=[{'key': "Name", 'value': subnet_id}]
+            )  
+            self.subnet_id_to_subnet_map_2[subnet_id] = subnet
 
     # Create internet gateway and attach it to vpc1.
-    def attach_internet_gateway(self) -> ec2.CfnInternetGateway:
-        ''' Create and Attach Internet Gateway '''
-        internet_gateway = ec2.CfnInternetGateway(
+    def attach_internet_gateway_1(self) -> ec2.CfnInternetGateway:
+        ''' Create and Attach Internet Gateways vpc1 '''
+        internet_gateway_1 = ec2.CfnInternetGateway(
             self,
             config.INTERNET_GATEWAY_1
         )
         ec2.CfnVPCGatewayAttachment(
             self,
-            "internet_gateway_attachment",
+            "internet_gateway_attachment_1",
             vpc_id=self.vpc1.vpc_id,
-            internet_gateway_id=internet_gateway.ref
+            internet_gateway_id=internet_gateway_1.ref
         )
+       
+        return internet_gateway_1
+    
+    # Create internet gateway and attach it to vpc2.
+    def attach_internet_gateway_2(self) -> ec2.CfnInternetGateway:
+        ''' Create and Attach Internet Gateway vpc2 '''
+        internet_gateway_2 = ec2.CfnInternetGateway(
+            self,
+            config.INTERNET_GATEWAY_2
+        )
+        ec2.CfnVPCGatewayAttachment(
+            self,
+            "internet_gateway_attachment_2",
+            vpc_id=self.vpc2.vpc_id,
+            internet_gateway_id=internet_gateway_2.ref
+        )
+        return internet_gateway_2
 
-        return internet_gateway
-
-    # Create NAT gateway for public-subnet-1.
+    # Create NAT gateway for public-subnet-1 (vpc1).
     def create_nat_gateway(self) -> ec2.CfnNatGateway:
         ''' Create and Attach NAT Gateway '''
         nat_gateway = ec2.CfnNatGateway(
             self,
             config.NAT_GATEWAY,
             allocation_id=self.elastic_ip.attr_allocation_id,
-            subnet_id=self.subnet_id_to_subnet_map[config.PUBLIC_SUBNET_1].ref,
+            subnet_id=self.subnet_id_to_subnet_map_1[config.PUBLIC_SUBNET_1].ref,
         )
 
         return nat_gateway  
 
-    # Create route tables for vpc1.
+    
     def create_route_tables(self):
         ''' Create Route Tables '''
-        for route_table_id in config.ROUTE_TABLES_ID_TO_ROUTES_MAP:
-            self.route_table_id_to_route_table_map[route_table_id] = ec2.CfnRouteTable(
+        # Create route tables for vpc1.
+        for route_table_id in config.ROUTE_TABLES_ID_TO_ROUTES_MAP_1:
+            self.route_table_id_to_route_table_map_1[route_table_id] = ec2.CfnRouteTable(
                 self, 
                 route_table_id,
                 vpc_id=self.vpc1.vpc_id,
                 tags=[{"key": "Name", "value": route_table_id}]
             )
+    
+        # Create route tables for vpc2.
+        for route_table_id in config.ROUTE_TABLES_ID_TO_ROUTES_MAP_2:
+            self.route_table_id_to_route_table_map_2[route_table_id] = ec2.CfnRouteTable(
+                self, 
+                route_table_id,
+                vpc_id=self.vpc2.vpc_id,
+                tags=[{"key": "Name", "value": route_table_id}]
+            )
 
-    def create_subnet_route_tables_association(self):
+    # Create subnet route table association for vpc1 and vpc2. 
+    def create_subnet_route_tables_associations(self):
         ''' Associate Subnets With Route Tables '''
+        # vpc1.
         for subnetId, subnet_config in config.SUBNET_CONFIGURATION_1.items():
             routeTableId = subnet_config['route_table_id']
             ec2.CfnSubnetRouteTableAssociation(
                 self,
                 f"{subnetId}<-->{routeTableId}",
-                route_table_id=self.route_table_id_to_route_table_map[routeTableId].ref, 
-                subnet_id=self.subnet_id_to_subnet_map[subnetId].ref
+                route_table_id=self.route_table_id_to_route_table_map_1[routeTableId].ref, 
+                subnet_id=self.subnet_id_to_subnet_map_1[subnetId].ref
+            )
+        
+        # vpc2.
+        for subnetId, subnet_config in config.SUBNET_CONFIGURATION_2.items():
+            routeTableId = subnet_config['route_table_id']
+            ec2.CfnSubnetRouteTableAssociation(
+                self,
+                f"{subnetId}<-->{routeTableId}",
+                route_table_id=self.route_table_id_to_route_table_map_2[routeTableId].ref, 
+                subnet_id=self.subnet_id_to_subnet_map_2[subnetId].ref
             )
     
-    def create_routes(self):
+    def create_routes_vpc1(self):
         ''' Create routes of the Route Tables '''
-        for route_table_id, routes in config.ROUTE_TABLES_ID_TO_ROUTES_MAP.items():
+        for route_table_id, routes in config.ROUTE_TABLES_ID_TO_ROUTES_MAP_1.items():
             for i in range(len(routes)):
                 route = routes[i]
                 kwargs = {
                     **route,
-                    'route_table_id': self.route_table_id_to_route_table_map[route_table_id].ref,
+                    'route_table_id': self.route_table_id_to_route_table_map_1[route_table_id].ref,
                 }
                 if route['router_type'] == ec2.RouterType.GATEWAY:
-                    kwargs['gateway_id'] = self.internet_gateway.ref
+                    kwargs['gateway_id'] = self.internet_gateway_1.ref
                 if route['router_type'] == ec2.RouterType.NAT_GATEWAY:
                     kwargs['nat_gateway_id'] = self.nat_gateway.ref
                 del kwargs['router_type']
                 ec2.CfnRoute(self, f'{route_table_id}-route-{i}', **kwargs)
+
+    def create_routes_vpc2(self):
+        ''' Create Routes of the Route Tables '''
+        for route_table_id, routes in config.ROUTE_TABLES_ID_TO_ROUTES_MAP_2.items():
+            for i in range(len(routes)):
+                route = routes[i]
+                kwargs = {
+                    **route,
+                    'route_table_id': self.route_table_id_to_route_table_map_2[route_table_id].ref,
+                }
+                if route['router_type'] == ec2.RouterType.GATEWAY:
+                    kwargs['gateway_id'] = self.internet_gateway_2.ref
+                if route['router_type'] == ec2.RouterType.NAT_GATEWAY:
+                    kwargs['nat_gateway_id'] = self.nat_gateway.ref
+                del kwargs['router_type']
+                ec2.CfnRoute(self, f'{route_table_id}-route-{i}', **kwargs)
+
