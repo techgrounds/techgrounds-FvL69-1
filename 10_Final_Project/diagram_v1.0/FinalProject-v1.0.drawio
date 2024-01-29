@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-01-29T12:40:55.288Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0" etag="X_qeFp5NY4I1RGE9cf4t" version="23.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2024-01-29T12:41:47.468Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0" etag="i256T3yeDqgrX54SwTzo" version="23.0.2" type="github">
   <diagram name="Pagina-1" id="PJHqQeVscJE3fAsvbVZz">
     <mxGraphModel dx="2704" dy="526" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
@@ -159,7 +159,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_0UyvHpJM2_UYdEt7BVN-19" value="Availability Zone 1b" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
+        <mxCell id="_0UyvHpJM2_UYdEt7BVN-19" value="Availability Zone 1b" style="fillColor=none;strokeColor=#147EBA;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="460" y="50" width="330" height="430" as="geometry" />
         </mxCell>
         <mxCell id="Sj0KoQw-8R_YdXfJVcrg-43" value="Subnet:ACL" style="shape=mxgraph.ibm.box;prType=subnet;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=#E6F0E2;rounded=0;whiteSpace=wrap;html=1;strokeColor=#00882B;strokeWidth=1;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
@@ -228,7 +228,7 @@
         <mxCell id="t2itLy4NO13nEmEV0UdQ-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="_0UyvHpJM2_UYdEt7BVN-11" source="Sj0KoQw-8R_YdXfJVcrg-16" target="VpXMpqJgnysS3OqA2jy1-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="_0UyvHpJM2_UYdEt7BVN-17" value="Availability Zone 1a" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
+        <mxCell id="_0UyvHpJM2_UYdEt7BVN-17" value="Availability Zone 1a" style="fillColor=none;strokeColor=#147EBA;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="105" y="50" width="310" height="430" as="geometry" />
         </mxCell>
         <mxCell id="r2skP4YST0uJ2uLN2XHx-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="PVbMBeRZzMBnVaOnaRQ2-1" target="PVbMBeRZzMBnVaOnaRQ2-4" edge="1">
