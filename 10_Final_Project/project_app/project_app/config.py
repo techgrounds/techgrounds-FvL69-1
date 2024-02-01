@@ -4,8 +4,7 @@ from aws_cdk import aws_ec2 as ec2
 VPC1 = 'vpc1'
 VPC2 = 'vpc2'
 
-INTERNET_GATEWAY_1 = 'IGW1'
-INTERNET_GATEWAY_2 = 'IGW2'
+INTERNET_GATEWAY = 'IGW'
 NAT_GATEWAY = 'NGW'
 REGION = 'eu-central-1'
 
@@ -17,15 +16,15 @@ ROUTE_TABLES_ID_TO_ROUTES_MAP_1 = {
     PUBLIC_ROUTE_TABLE_1: [
         {
             'destination_cidr_block': '0.0.0.0/0',
-            'gateway_id': INTERNET_GATEWAY_1,
-            'router_type': ec2.RouterType.GATEWAY
+            'gateway_id': INTERNET_GATEWAY,
+            'router_type': ec2.RouterType.GATEWAY,
         }
     ],
     PRIVATE_ROUTE_TABLE_1: [
         {
             'destination_cidr_block': '0.0.0.0/0',
             'nat_gateway_id': NAT_GATEWAY,
-            'router_type': ec2.RouterType.NAT_GATEWAY
+            'router_type': ec2.RouterType.NAT_GATEWAY,
         }
     ],
 }
@@ -37,15 +36,13 @@ PRIVATE_ROUTE_TABLE_2 = 'private-RT-2'
 ROUTE_TABLES_ID_TO_ROUTES_MAP_2 = {
     PUBLIC_ROUTE_TABLE_2: [
         {
-            'destination_cidr_block': '0.0.0.0/0',
-            'gateway_id': INTERNET_GATEWAY_2,
-            'router_type': ec2.RouterType.GATEWAY
+            'destination_cidr_block': '10.10.10.0/26',
+
         }
     ],
     PRIVATE_ROUTE_TABLE_2: [
         {
-            'destination_cidr_block': '0.0.0.0/0',
-            'router_type': ec2.RouterType.GATEWAY
+            #'destination_cidr_block': '10.20.20.0/26',
         }
     ],
 }

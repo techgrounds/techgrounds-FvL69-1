@@ -36,15 +36,6 @@ class ProjectAppStack(Stack):
             enable_dns_support=True,
         )
 
-        # Create vpc peering.
-        self.vpc_peering_connection = ec2.CfnVPCPeeringConnection(
-            self,
-            f"{config.VPC1}<-->{config.VPC2}",
-            peer_vpc_id=self.vpc2.vpc_id,
-            vpc_id=self.vpc1.vpc_id,
-            tags=[{'key': 'Name', 'value': f'vpc_peering_connection'}]
-        )
-
         # vpc1.
         self.subnet_id_to_subnet_map_1 = {}
         self.route_table_id_to_route_table_map_1 = {}
@@ -61,14 +52,45 @@ class ProjectAppStack(Stack):
         self.route_table_id_to_route_table_map_2 = {}
 
         self.create_subnets_vpc2()
-        self.internet_gateway_2 = self.attach_internet_gateway_2()
+        #self.create_admin_server()
         
         # vpc1 and vpc2.
         self.create_route_tables()
         self.create_subnet_route_tables_associations()
 
         self.create_routes_vpc1()
-        self.create_routes_vpc2()
+        #self.create_routes_vpc2()
+
+        self.create_vpcPeering_and_routes()
+
+
+    def create_vpcPeering_and_routes(self):
+         # Create vpc peering.
+        vpc_peering_connection = ec2.CfnVPCPeeringConnection(
+            self,
+            "vpc_peering",
+            peer_vpc_id=self.vpc2.vpc_id,
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': 'vpc1_peering_vpc2'}]
+        )
+
+        # Create route from public-RT-1 to vpc_peering_connection.
+        ec2.CfnRoute(
+            self,
+            "peeringConnectionRoute1",
+            route_table_id=self.route_table_id_to_route_table_map_1[config.PUBLIC_ROUTE_TABLE_1].ref,
+            destination_cidr_block='10.20.20.0/26',
+            vpc_peering_connection_id=vpc_peering_connection.ref
+        )
+
+        # Create route from public-RT-2 TO vpc_peering_connection.
+        ec2.CfnRoute(
+            self,
+            "peeringConnectionRoute2",
+            route_table_id=self.route_table_id_to_route_table_map_2[config.PUBLIC_ROUTE_TABLE_2].ref,
+            destination_cidr_block='10.10.10.0/26',
+            vpc_peering_connection_id=vpc_peering_connection.ref
+        )
 
 
     # Create subnets for vpc1.
@@ -106,7 +128,7 @@ class ProjectAppStack(Stack):
         ''' Create and Attach Internet Gateways vpc1 '''
         internet_gateway_1 = ec2.CfnInternetGateway(
             self,
-            config.INTERNET_GATEWAY_1
+            config.INTERNET_GATEWAY
         )
         ec2.CfnVPCGatewayAttachment(
             self,
@@ -116,21 +138,6 @@ class ProjectAppStack(Stack):
         )
        
         return internet_gateway_1
-    
-    # Create internet gateway and attach it to vpc2.
-    def attach_internet_gateway_2(self) -> ec2.CfnInternetGateway:
-        ''' Create and Attach Internet Gateway vpc2 '''
-        internet_gateway_2 = ec2.CfnInternetGateway(
-            self,
-            config.INTERNET_GATEWAY_2
-        )
-        ec2.CfnVPCGatewayAttachment(
-            self,
-            "internet_gateway_attachment_2",
-            vpc_id=self.vpc2.vpc_id,
-            internet_gateway_id=internet_gateway_2.ref
-        )
-        return internet_gateway_2
 
     # Create NAT gateway for public-subnet-1 (vpc1).
     def create_nat_gateway(self) -> ec2.CfnNatGateway:
@@ -187,7 +194,7 @@ class ProjectAppStack(Stack):
                 route_table_id=self.route_table_id_to_route_table_map_2[routeTableId].ref, 
                 subnet_id=self.subnet_id_to_subnet_map_2[subnetId].ref
             )
-    
+
     def create_routes_vpc1(self):
         ''' Create routes of the Route Tables '''
         for route_table_id, routes in config.ROUTE_TABLES_ID_TO_ROUTES_MAP_1.items():
@@ -213,10 +220,7 @@ class ProjectAppStack(Stack):
                     **route,
                     'route_table_id': self.route_table_id_to_route_table_map_2[route_table_id].ref,
                 }
-                if route['router_type'] == ec2.RouterType.GATEWAY:
-                    kwargs['gateway_id'] = self.internet_gateway_2.ref
-                if route['router_type'] == ec2.RouterType.NAT_GATEWAY:
-                    kwargs['nat_gateway_id'] = self.nat_gateway.ref
-                del kwargs['router_type']
                 ec2.CfnRoute(self, f'{route_table_id}-route-{i}', **kwargs)
 
+        
+    

@@ -40,4 +40,11 @@ SUBNET_CONFIGURATION_2 = {
         'route_table_id': PRIVATE_ROUTE_TABLE_2,
     }
 }
+
+#print(kwargs)
+                if route['router_type'] == ec2.RouterType.GATEWAY:
+                    kwargs['gateway_id'] = self.internet_gateway_1.ref
+                if route['router_type'] == ec2.RouterType.NAT_GATEWAY:
+                    kwargs['nat_gateway_id'] = self.nat_gateway.ref
+                del kwargs['router_type']
 '''
