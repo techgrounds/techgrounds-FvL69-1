@@ -3,6 +3,10 @@ from aws_cdk import aws_ec2 as ec2
 # basic VPC configs
 VPC1 = 'vpc1'
 VPC2 = 'vpc2'
+VPC_PEERING = 'vpc_peering'
+ADMIN_SERVER = 'adminServer'
+
+ADMIN_SERVER_SG = 'AdminServerSG'
 
 INTERNET_GATEWAY = 'IGW'
 NAT_GATEWAY = 'NGW'
@@ -37,12 +41,13 @@ ROUTE_TABLES_ID_TO_ROUTES_MAP_2 = {
     PUBLIC_ROUTE_TABLE_2: [
         {
             'destination_cidr_block': '10.10.10.0/26',
-
+            'instance_id': ADMIN_SERVER
         }
     ],
     PRIVATE_ROUTE_TABLE_2: [
         {
-            #'destination_cidr_block': '10.20.20.0/26',
+            'destination_cidr_block': '10.20.20.0/26',
+            'instance_id': ADMIN_SERVER
         }
     ],
 }
