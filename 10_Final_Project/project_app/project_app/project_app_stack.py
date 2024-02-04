@@ -271,22 +271,6 @@ class ProjectAppStack(Stack):
                 break
 
 
-'''       
-RuntimeError: To set 'associatePublicIpAddress: true' you must select Public subnets (vpcSubnets: { subnetType: SubnetType.PUBLIC })
-
-ChatGPT:
-The error indicates that you are trying to set associatePublicIpAddress: true for an EC2 instance, but the instance is not associated 
-with a public subnet. When you want an EC2 instance to have a public IP address (associate_public_ip_address=True), 
-it must be launched in a public subnet. A public subnet is a subnet that is associated with a route table that has a route to 
-the internet (typically through an Internet Gateway or a NAT Gateway).
-
-Ensure that the subnet in which you are launching the EC2 instance is designated as a public subnet. 
-
-AdminServer (AdminServer61AB9504) No default subnet for availability zone: 'eu-central-1a'
-'''
-        
-
-       
 
 
 
