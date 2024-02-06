@@ -1,3 +1,4 @@
+from tkinter import Y
 from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
@@ -14,21 +15,22 @@ class ProjectAppStack(Stack):
         self.vpc1 = ec2.Vpc(
             self,
             config.VPC1,
-            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/25'),
+            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/25s'),
+            availability_zones=['eu-central-1a', 'eu-central-1b'],
             subnet_configuration=[],
-            max_azs=2,
             nat_gateways=0,
             enable_dns_hostnames=True,
             enable_dns_support=True,
         )
+
 
         # Creating vpc2.
         self.vpc2 = ec2.Vpc(
             self,
             config.VPC2,
             ip_addresses=ec2.IpAddresses.cidr('10.20.20.0/25'),
+            availability_zones=['eu-central-1a', 'eu-central-1b'],
             subnet_configuration=[],
-            max_azs=2,
             nat_gateways=0,
             enable_dns_hostnames=True,
             enable_dns_support=True,
@@ -40,11 +42,11 @@ class ProjectAppStack(Stack):
 
         self.create_subnets_vpc1()
         self.internet_gateway = self.attach_internet_gateway()
-
+        
         self.elastic_ip = ec2.CfnEIP(self, "EIP")
         self.nat_gateway = self.create_nat_gateway()
         self.nat_gateway.add_dependency(self.elastic_ip)
-
+        
         # vpc2 attributes and method calls.
         self.subnet_id_to_subnet_map_2 = {}
         self.route_table_id_to_route_table_map_2 = {}
@@ -52,7 +54,7 @@ class ProjectAppStack(Stack):
         self.create_subnets_vpc2()
 
         # Create AdminServer key-pair.
-        self.key_pair = ec2.KeyPair(
+        self.adminKeyPair = ec2.KeyPair(
             self, 
             "ServerKeyPair",
             key_pair_name='adminServer.kp',
@@ -71,7 +73,7 @@ class ProjectAppStack(Stack):
         )
         # Allow inbound RDP access from a specific IP address.
         self.adminServerSG.add_ingress_rule(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389), "AllowRDPAccessFromSpecificIP")
-        #self.create_admin_server()
+        self.create_admin_server()
 
         # vpc1 and vpc2.
         self.create_route_tables()
@@ -154,7 +156,7 @@ class ProjectAppStack(Stack):
             internet_gateway_id=internet_gateway.ref
         )
         return internet_gateway
-
+    
     # Create NAT gateway for public-subnet-1 (vpc1).
     def create_nat_gateway(self) -> ec2.CfnNatGateway:
         ''' Create and Attach NAT Gateway '''
@@ -165,7 +167,7 @@ class ProjectAppStack(Stack):
             subnet_id=self.subnet_id_to_subnet_map_1[config.PUBLIC_SUBNET_1].ref,
         )
         return nat_gateway  
-
+    
     def create_route_tables(self):
         ''' Create Route Tables '''
         # Create route tables for vpc1.
@@ -234,44 +236,33 @@ class ProjectAppStack(Stack):
                 }
                 ec2.CfnRoute(self, f'{route_table_id}-route-{i}', **kwargs)
 
+    # Create windows server 2022 Base in public subnet vpc2.
     def create_admin_server(self):
-        for subnet_id, subnet_config in config.SUBNET_CONFIGURATION_2.items():
-            if subnet_id == config.PUBLIC_SUBNET_2:
-                # Create windows 2022 instance in public subnet vpc2.
-                windows_server = ec2.Instance(
-                    self,
-                    config.ADMIN_SERVER,
-                    instance_type=ec2.InstanceType.of(
-                        ec2.InstanceClass.BURSTABLE2,
-                        ec2.InstanceSize.MICRO),
-                    machine_image=ec2.WindowsImage(
-                        ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_FULL_BASE
-                    ),
-                    vpc=self.vpc2,
-                    availability_zone=subnet_config['availability_zone'],
-                    vpc_subnets=ec2.SubnetSelection(subnets=[self.subnet_id_to_subnet_map_2[subnet_id]]),
-                    associate_public_ip_address=False,
-                    key_pair=self.key_pair,
-                    security_group=self.adminServerSG,
-                    block_devices=[ec2.BlockDevice(
-                        device_name='/dev/sda1', # Default root volume.
-                        volume=ec2.BlockDeviceVolume.ebs(
-                            volume_size=30,
-                            encrypted=True,
-                            delete_on_termination=True,
-                        )
-                    )]
-                )
-                # Allow RDP access from a trusted source IP address. (Admins home address IP)
-                windows_server.connections.allow_from(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389))
+        ec2.CfnInstance(
+            self,
+            'adminServer',
+            availability_zone='eu-central-1a',
+            image_id='ami-0ced908879ca69797',  
+            instance_type='t2.micro',
+            subnet_id= self.subnet_id_to_subnet_map_2['public-subnet-2'].ref,
+            key_name='adminServer.kp',  
+            security_group_ids=['AdminServerSG'],  
+            tags=[{'key': 'Name', 'value': 'AdminServer'}], 
+            block_device_mappings=[
+                {
+                    'deviceName': '/dev/sda1',
+                    'ebs': {
+                        'volumeSize': 30,
+                        'encryption': True,
+                        'deleteOnTermination': True,
+                    },
+                },
+            ],
+        )
+        # Allow RDP access from a trusted source IP address. (Admins home address IP)
+        #windows_server.connections.allow_from(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389))
 
-                # Allow RDP access from a trusted source IP address. (Admins office IP)
-                #windows_server.connections.allow_from(ec2.Peer.ipv4('0.0.0.0'), ec2.Port.tcp(3389))
-            else:
-                break
+        # Allow RDP access from a trusted source IP address. (Admins office IP)
+        #windows_server.connections.allow_from(ec2.Peer.ipv4('0.0.0.0'), ec2.Port.tcp(3389))
 
 
-
-
-
-    
