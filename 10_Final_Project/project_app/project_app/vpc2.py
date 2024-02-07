@@ -100,4 +100,27 @@ windows_server = ec2.CfnInstance(
 
 # Allow RDP access from a trusted source IP address. (Admins home address IP)
 windows_server.connections.allow_from(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389))
+ instance_type=ec2.InstanceType.of(
+                ec2.InstanceClass.BURSTABLE2,
+                ec2.InstanceSize.MICRO),
+            machine_image=ec2.WindowsImage(
+                ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_FULL_BASE
+            ),
+            vpc=self.vpc2,
+            availability_zone='eu-central-1a',
+            vpc_subnets=ec2.SubnetSelection(config.PUBLIC_SUBNET_2),
+            associate_public_ip_address=True,
+            key_pair=self.key_pair,
+            security_group=self.adminServerSG,
+            block_devices=[ec2.BlockDevice(
+                device_name='/dev/sda1', # Default root volume.
+                volume=ec2.BlockDeviceVolume.ebs(
+                    volume_size=30,
+                    encrypted=True,
+                    delete_on_termination=True,
+                )
+            )]
+
+    AmazonLinuxImage, AmazonLinuxGeneration, InstanceClass, InstanceSize, InstanceType, WindowsImage, WindowsVersion, UserData
+            
 '''

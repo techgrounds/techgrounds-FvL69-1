@@ -1,4 +1,3 @@
-from tkinter import Y
 from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
@@ -238,13 +237,39 @@ class ProjectAppStack(Stack):
 
     # Create windows server 2022 Base in public subnet vpc2.
     def create_admin_server(self):
-        ec2.CfnInstance(
+        self.windows_server = ec2.Instance(
+            self,
+            'adminServer',
+            instance_type=ec2.InstanceType.of(
+                ec2.InstanceClass.BURSTABLE2,
+                ec2.InstanceSize.MICRO),
+            machine_image=ec2.WindowsImage(
+                ec2.WindowsVersion.WINDOWS_SERVER_2022_ENGLISH_FULL_BASE
+            ),
+            vpc=self.vpc2,
+            availability_zone='eu-central-1a',
+            vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
+            associate_public_ip_address=True,
+            key_pair=self.adminKeyPair,
+            security_group=self.adminServerSG,
+            block_devices=[ec2.BlockDevice(
+            device_name='/dev/sda1', # Default root volume.
+            volume=ec2.BlockDeviceVolume.ebs(
+                    volume_size=30,
+                    encrypted=True,
+                    delete_on_termination=True,
+                    )
+            )]
+        )
+    """
+    def create_admin_server(self):
+        ec2.Instance(
             self,
             'adminServer',
             availability_zone='eu-central-1a',
             image_id='ami-0ced908879ca69797',  
             instance_type='t2.micro',
-            subnet_id= self.subnet_id_to_subnet_map_2['public-subnet-2'].ref,
+            vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
             key_name='adminServer.kp',  
             security_group_ids=['AdminServerSG'],  
             tags=[{'key': 'Name', 'value': 'AdminServer'}], 
@@ -265,4 +290,4 @@ class ProjectAppStack(Stack):
         # Allow RDP access from a trusted source IP address. (Admins office IP)
         #windows_server.connections.allow_from(ec2.Peer.ipv4('0.0.0.0'), ec2.Port.tcp(3389))
 
-
+"""
