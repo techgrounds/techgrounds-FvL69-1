@@ -2,11 +2,11 @@ from aws_cdk import (
     core,
     CfnOutput,
     Stack,
-    aws_ec2 as ec2,
+    aws_ec2 as ec2
 )
 from constructs import Construct
 
-class FinalVersionStack(Stack):
+class ProjectAppVersion2Stack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -117,13 +117,13 @@ class FinalVersionStack(Stack):
             tags=[{'key': 'Name', 'value': 'AdminSG'}],
         )
         self.adminServer = self.create_admin_server()
-        # Create an output for the instance ID
-        core.CfnOutput(
-            self, 
-            'adminServer',
-            value=self.adminServer.ref,
-            description='ID of the EC2 instance'
-        )    
+        self.adminServerOutput = core.CfnOutput(
+                self,
+                "AdminServer",
+                value=self.adminServer.ref,
+                description='ID of the EC2 instance'
+            )
+        
         self.webServerKeyPair = ec2.KeyPair(
             self, 
             "ServerKeyPairWeb",
@@ -131,7 +131,7 @@ class FinalVersionStack(Stack):
             type=ec2.KeyPairType.RSA,
             format=ec2.KeyPairFormat.PEM
         )
-        self.WebSG = ec2.SecurityGroup (
+        self.webSG = ec2.SecurityGroup (
             self, 
             "WebServerSG",
             vpc=self.vpc1,
@@ -139,7 +139,7 @@ class FinalVersionStack(Stack):
             allow_all_outbound=True,
             security_group_name='WebServer'
         )
-        self.WebServer = self.create_web_sever()
+        self.webServer = self.create_web_sever()
         
     # Create internet gateway and attach it to vpc1.
     def attach_internet_gateway(self) -> ec2.CfnInternetGateway:
@@ -283,7 +283,6 @@ class FinalVersionStack(Stack):
             }],
         )
         return admin_server
-    
+            
     def create_web_sever(self):
         pass
-       

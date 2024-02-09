@@ -122,5 +122,52 @@ windows_server.connections.allow_from(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port
             )]
 
     AmazonLinuxImage, AmazonLinuxGeneration, InstanceClass, InstanceSize, InstanceType, WindowsImage, WindowsVersion, UserData
+
+
+ 
+ 
+
+        for i in self.vpc2.public_subnets:
+            subnet_id=i.subnet_id
+            print(subnet_id)
+
             
+"""# Create route table associations vpc1.
+    def create_Subnet_Route_Table_Associations_vpc1(self):
+        index_list = [0,1]
+        for i in index_list:
+            name = 'pubicRT1subnetAssociation'
+            ec2.CfnSubnetRouteTableAssociation(
+                self,
+                f'{name}{i+1}',
+                route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
+                subnet_id=self.vpc1.public_subnets[i].subnet_id,
+            )
+        for i in index_list:
+            name = 'privateRT1subnetAssociation'
+            ec2.CfnSubnetRouteTableAssociation(
+                self,
+                f'{name}{i+1}',
+                route_table_id=self.route_table_id_to_route_table_mapVpc1['privateRT1'].ref,
+                subnet_id=self.vpc1.private_subnets[i].subnet_id,
+            )
+"""
+
+index_list = [0,1]
+        for i in index_list:
+            name = 'pubicRT2subnetAssociation'
+            ec2.CfnSubnetRouteTableAssociation(
+                self,
+                f'{name}{i+1}',
+                route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
+                subnet_id=self.vpc2.public_subnets[i].subnet_id,
+            )
+        for i in index_list:
+            name = 'privateRT2subnetAssociation'
+            ec2.CfnSubnetRouteTableAssociation(
+                self,
+                f'{name}{i+1}',
+                route_table_id=self.route_table_id_to_route_table_mapVpc2['privateRT2'].ref,
+                subnet_id=self.vpc2.private_subnets[i].subnet_id,
+            )
 '''
