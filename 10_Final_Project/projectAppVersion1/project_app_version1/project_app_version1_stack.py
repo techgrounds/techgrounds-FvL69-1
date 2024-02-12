@@ -1,12 +1,11 @@
 from aws_cdk import (
-    core,
-    CfnOutput,
     Stack,
-    aws_ec2 as ec2
+    aws_ec2 as ec2,
+    CfnOutput,
 )
 from constructs import Construct
 
-class ProjectAppVersion2Stack(Stack):
+class ProjectAppVersion1Stack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -99,30 +98,15 @@ class ProjectAppVersion2Stack(Stack):
             type=ec2.KeyPairType.RSA,
             format=ec2.KeyPairFormat.PEM
         )
-        self.adminSG = ec2.CfnSecurityGroup (
+        self.adminSG = ec2.SecurityGroup (
             self, 
             "AdminSG",
-            vpc_id=self.vpc2.vpc_id,
-            group_description="adminServerSecurityGroup",
-            security_group_ingress=[
-                {
-                    "cidrIp": "86.83.75.135/24",
-                    "fromPort":3389,
-                    "toPort": 3389,
-                    "ipProtocol": "tcp",
-                    'desciption': "AllowRDPAccessFromSpecificIP",
-                }
-            ], 
-            group_name='AdminSG',
-            tags=[{'key': 'Name', 'value': 'AdminSG'}],
+            vpc=self.vpc2,
+            description="adminServerSecurityGroup",
+            security_group_name='AdminSG',
         )
         self.adminServer = self.create_admin_server()
-        self.adminServerOutput = core.CfnOutput(
-                self,
-                "AdminServer",
-                value=self.adminServer.ref,
-                description='ID of the EC2 instance'
-            )
+        CfnOutput(self, "adminServer", value=self.adminServer.attr_id)
         
         self.webServerKeyPair = ec2.KeyPair(
             self, 
@@ -255,17 +239,17 @@ class ProjectAppVersion2Stack(Stack):
             'AdminServer-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
             destination_cidr_block='10.20.20.0/26',
-            instance_id=self.adminServer.ref,
+            instance_id=self.adminServer.attr_id,
         )
-
+    
     def create_admin_server(self) -> ec2.CfnInstance:
-        # Create windows server 2022 Base in public subnet vpc2.
-        admin_server = ec2.CfnInstance(
+        managementServer = ec2.CfnInstance(
             self,
             'adminServer',
             instance_type='t2.micro',
             image_id='ami-0ced908879ca69797',
             availability_zone='eu-central-1a',
+            security_group_ids=self.adminSG.security_group_id,
             key_name='adminServer.kp',
             block_device_mappings=[{
                 "deviceName": "/dev/sda1",
@@ -273,16 +257,17 @@ class ProjectAppVersion2Stack(Stack):
                     "volumeSize": 30,
                     "encrypted": True,
                     "deleteOnTermination": True,
-                 }
-             }],
+                }
+            }],
             network_interfaces=[{
                 'associatePublicIpAddress': True,
-                'deviceIndex': 0,
-                'subnetId': self.publicSubnet2.ref,
-                'groups': self.adminSG.ref,
-            }],
+                'deviceIndex': '0',
+                'subnet_id': self.publicSubnet2.ref,
+            }],                
         )
-        return admin_server
-            
+        return managementServer
+    
     def create_web_sever(self):
         pass
+
+print(ProjectAppVersion1Stack.__dict__)
