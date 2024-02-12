@@ -13,7 +13,7 @@ class ProjectAppVersion1Stack(Stack):
         self.vpc1 = ec2.Vpc(
             self,
             'vpc1',
-            availability_zones=['eu-central-1a', 'eu-central-1b'],
+            max_azs=3,
             create_internet_gateway=False,
             ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/25'),
             subnet_configuration=[],
@@ -25,7 +25,7 @@ class ProjectAppVersion1Stack(Stack):
         self.vpc2 = ec2.Vpc(
             self,
             'vpc2',
-            availability_zones=['eu-central-1a', 'eu-central-1b'],
+            max_azs=3,
             create_internet_gateway=False,
             ip_addresses=ec2.IpAddresses.cidr('10.20.20.0/25'),
             subnet_configuration=[],
@@ -89,7 +89,6 @@ class ProjectAppVersion1Stack(Stack):
         self.route_table_id_to_route_table_mapVpc2 = {}
         self.create_route_tables()
         self.create_Subnet_Route_Table_Associations()
-        self.createRoutes()
         
         self.adminKeyPair = ec2.KeyPair(
             self, 
@@ -105,8 +104,9 @@ class ProjectAppVersion1Stack(Stack):
             description="adminServerSecurityGroup",
             security_group_name='AdminSG',
         )
+        self.adminSG.add_ingress_rule(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389), "AllowRDPtrafficToSpecificIP")
         self.adminServer = self.create_admin_server()
-        CfnOutput(self, "adminServer", value=self.adminServer.attr_id)
+        #CfnOutput(self, "adminServerOutput", value='adminServer')
         
         self.webServerKeyPair = ec2.KeyPair(
             self, 
@@ -121,9 +121,12 @@ class ProjectAppVersion1Stack(Stack):
             vpc=self.vpc1,
             description="webServerSecurityGroup",
             allow_all_outbound=True,
-            security_group_name='WebServer'
+            security_group_name='WebServerSG'
         )
         self.webServer = self.create_web_sever()
+        #CfnOutput(self, "webServerOutput", value='webServer')
+
+        self.createRoutes()
         
     # Create internet gateway and attach it to vpc1.
     def attach_internet_gateway(self) -> ec2.CfnInternetGateway:
@@ -233,41 +236,68 @@ class ProjectAppVersion1Stack(Stack):
             destination_cidr_block='10.10.10.0/24',
             vpc_peering_connection_id=self.vpc_peering_connection.ref
         )
-        # PublicRT1 to AdminServer
+        # PublicRT2 to adminServer
         ec2.CfnRoute(
             self,
             'AdminServer-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
             destination_cidr_block='10.20.20.0/26',
-            instance_id=self.adminServer.attr_id,
+            instance_id=self.adminServer.ref,
+        )
+        # publicRT1 to webServer.
+        ec2.CfnRoute(
+            self,
+            'webServer-route',
+            route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
+            destination_cidr_block='10.10.10.0/26',
+            instance_id=self.webServer.ref,
         )
     
     def create_admin_server(self) -> ec2.CfnInstance:
-        managementServer = ec2.CfnInstance(
+        admin_server = ec2.CfnInstance(
             self,
             'adminServer',
             instance_type='t2.micro',
-            image_id='ami-0ced908879ca69797',
-            availability_zone='eu-central-1a',
-            security_group_ids=self.adminSG.security_group_id,
+            image_id='ami-0ced908879ca69797', # Windows AMI
+            subnet_id=self.publicSubnet2.ref,
+            availability_zone=self.publicSubnet2.attr_availability_zone,
+            security_group_ids=[self.adminSG.security_group_id],
             key_name='adminServer.kp',
-            block_device_mappings=[{
-                "deviceName": "/dev/sda1",
-                "ebs": {
-                    "volumeSize": 30,
-                    "encrypted": True,
-                    "deleteOnTermination": True,
-                }
-            }],
-            network_interfaces=[{
-                'associatePublicIpAddress': True,
-                'deviceIndex': '0',
-                'subnet_id': self.publicSubnet2.ref,
-            }],                
-        )
-        return managementServer
+            block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
+                device_name="/dev/sda1",
+                ebs=ec2.CfnInstance.EbsProperty(
+                    delete_on_termination=True,
+                    encrypted=True,
+                    #kms_key_id="kmsKeyId",
+                    volume_size=30,
+                ),
+            )],
+            tags=[{'key': 'Name', 'value': 'adminServer'}]
+        )    
+        return admin_server
     
-    def create_web_sever(self):
-        pass
-
-print(ProjectAppVersion1Stack.__dict__)
+    def create_web_sever(self) -> ec2.CfnInstance:
+        web_server = ec2.CfnInstance(
+            self,
+            "webServer",
+            instance_type='t2.micro', 
+            image_id='ami-03cceb19496c25679', # LNX AMI
+            subnet_id=self.publicSubnet1.ref,
+            availability_zone=self.publicSubnet1.attr_availability_zone,
+            security_group_ids=[self.webSG.security_group_id],
+            key_name='webServer.kp',
+            
+            block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
+                device_name="/dev/xvda",
+                ebs=ec2.CfnInstance.EbsProperty(
+                    delete_on_termination=True,
+                    encrypted=True,
+                    #kms_key_id="kmsKeyId",
+                    volume_size=30,
+                    volume_type='gp3',
+                ),
+            )],
+            tags=[{'key': 'Name', 'value': 'webServer'}]
+        )
+        return web_server
+        
