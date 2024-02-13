@@ -85,8 +85,6 @@ class ProjectAppVersion1Stack(Stack):
         self.nat_gateway.add_dependency(self.elastic_ip)
         self.internet_gateway = self.attach_internet_gateway()
 
-        self.route_table_id_to_route_table_mapVpc1 = {}
-        self.route_table_id_to_route_table_mapVpc2 = {}
         self.create_route_tables()
         self.create_Subnet_Route_Table_Associations()
 
@@ -144,32 +142,6 @@ class ProjectAppVersion1Stack(Stack):
         self.webServer = self.create_web_sever()
 
         self.createRoutes()
-
-        # Export the instance private and public IP addresses to the console.
-        CfnOutput(
-            self,
-            'publicIPadminServer',
-            value=self.adminServer.attr_public_ip,
-            export_name='publicIPadminServer',
-        )
-        CfnOutput(
-            self,
-            'privateIPadminServer',
-            value=self.adminServer.attr_private_ip,
-            export_name='privateIPadminServer',
-        )
-        CfnOutput(
-            self,
-            'publicIPwebServer',
-            value=self.webServer.attr_public_ip,
-            export_name='publicIPwebServer', 
-        )
-        CfnOutput(
-            self,
-            'privateIPwebServer',
-            value=self.webServer.attr_private_ip,
-            export_name='privateIPwebServer', 
-        )
         
     # Create internet gateway and attach it to vpc1.
     def attach_internet_gateway(self) -> ec2.CfnInternetGateway:
@@ -200,50 +172,60 @@ class ProjectAppVersion1Stack(Stack):
     # Create route tables for vp1 and vpc2.
     def create_route_tables(self):
         # Route tables vpc1.
-        for rt_id in ['publicRT1', 'privateRT1']:
-            self.route_table_id_to_route_table_mapVpc1[rt_id] = ec2.CfnRouteTable(
-                self,
-                id=rt_id,
-                vpc_id=self.vpc1.vpc_id,
-                tags=[{"key": "Name", "value": rt_id}],
-            )
+        self.publicRT1 = ec2.CfnRouteTable(
+            self,
+            id='publicRT1',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{"key": "Name", "value": 'publicRT1'}],
+        )
+        self.privateRT1 = ec2.CfnRouteTable(
+            self,
+            id='privateRT1',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{"key": "Name", "value": 'privateRT1'}],
+        )
         # Route tables vpc2.
-        for rt_id in ['publicRT2', 'privateRT2']:
-            self.route_table_id_to_route_table_mapVpc2[rt_id] = ec2.CfnRouteTable(
-                self,
-                id=rt_id,
-                vpc_id=self.vpc2.vpc_id,
-                tags=[{"key": "Name", "value": rt_id}],
-            )
+        self.publicRT2 = ec2.CfnRouteTable(
+            self,
+            id='publicRT2',
+            vpc_id=self.vpc2.vpc_id,
+            tags=[{"key": "Name", "value": 'publicRT2'}],
+        )
+        self.privateRT2 = ec2.CfnRouteTable(
+            self,
+            id='privateRT2',
+            vpc_id=self.vpc2.vpc_id,
+            tags=[{"key": "Name", "value": 'privateRT2'}],
+        )
 
-    # Create route table associations vpc1 and vpc2.
+    # Create subnet route table associations vpc1 and vpc2.
     def create_Subnet_Route_Table_Associations(self):
-        # vpc1 public and private associations.
+        # vpc1 public and private subnet route table associations.
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'pubRt1<-->pubSub1',
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
-            subnet_id=self.publicSubnet1.ref,
+            route_table_id=self.publicRT1.attr_route_table_id,
+            subnet_id=self.publicSubnet1.attr_subnet_id,
         )
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'privRt1<-->privSub1',
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['privateRT1'].ref,
-            subnet_id=self.privateSubnet1.ref,
+            route_table_id=self.privateRT1.attr_route_table_id,
+            subnet_id=self.privateSubnet1.attr_subnet_id,
         )
 
-        # vpc2 public and private associations.
+        # vpc2 public and private subnet route table associations.
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'pubRt2<-->pubSub2',
-            route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
-            subnet_id=self.publicSubnet2.ref,
+            route_table_id=self.publicRT2.attr_route_table_id,
+            subnet_id=self.publicSubnet2.attr_subnet_id,
         )
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'privRt2<-->privSub2',
-            route_table_id=self.route_table_id_to_route_table_mapVpc2['privateRT2'].ref,
-            subnet_id=self.privateSubnet2.ref,
+            route_table_id=self.privateRT2.attr_route_table_id,
+            subnet_id=self.privateSubnet2.attr_subnet_id,
         )
 
     def createRoutes(self):
@@ -251,48 +233,48 @@ class ProjectAppVersion1Stack(Stack):
         ec2.CfnRoute(
             self,
             'IGW-route',
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
             destination_cidr_block='0.0.0.0/0',
+            route_table_id=self.publicRT1.attr_route_table_id,
             gateway_id=self.internet_gateway.attr_internet_gateway_id,
         )
         # PrivateRT1 to NGW.
         ec2.CfnRoute(
             self,
             'NGW-route',
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['privateRT1'].ref,
             destination_cidr_block='0.0.0.0/0',
+            route_table_id=self.privateRT1.attr_route_table_id,
             nat_gateway_id=self.nat_gateway.attr_nat_gateway_id,
         )
         # PublicRT1 to vpc_peering_connection.
         ec2.CfnRoute(
             self,
             "peeringConnectionRoute1",
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
             destination_cidr_block=self.vpc2.vpc_cidr_block,
+            route_table_id=self.publicRT1.attr_route_table_id,
             vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
         # PublicRT2 to vpc_peering_connection.
         ec2.CfnRoute(
             self,
             "peeringConnectionRoute2",
-            route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
             destination_cidr_block=self.vpc1.vpc_cidr_block,
+            route_table_id=self.publicRT2.attr_route_table_id,
             vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
         # PublicRT2 to adminServer
         ec2.CfnRoute(
             self,
             'AdminServer-route',
-            route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
             destination_cidr_block=self.publicSubnet2.cidr_block,
+            route_table_id=self.publicRT2.attr_route_table_id,
             instance_id=self.adminServer.attr_id,
         )
         # publicRT1 to webServer.
         ec2.CfnRoute(
             self,
             'webServer-route',
-            route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
             destination_cidr_block=self.publicSubnet1.cidr_block,
+            route_table_id=self.publicRT1.attr_route_table_id,
             instance_id=self.webServer.attr_id,
         )
     
