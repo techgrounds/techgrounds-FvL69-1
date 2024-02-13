@@ -4,10 +4,10 @@
 Trying to solve this AttributeError msg.
 
 ## Obstacles
-1. AttributeError: 'FinalVersionStack' object has no attribute 'adminServer'
+AttributeError: 'FinalVersionStack' object has no attribute 'adminServer'
 
 ## Solutions
-No solution yet. 
+Wrong order of function calls.
 
 ## Learnings 
-?
+I can waste a lot of time on something so obvious!

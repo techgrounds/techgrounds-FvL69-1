@@ -1,7 +1,7 @@
 from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
-    #CfnOutput,
+    CfnOutput,
 )
 from constructs import Construct
 
@@ -89,44 +89,87 @@ class ProjectAppVersion1Stack(Stack):
         self.route_table_id_to_route_table_mapVpc2 = {}
         self.create_route_tables()
         self.create_Subnet_Route_Table_Associations()
-        
-        self.adminKeyPair = ec2.KeyPair(
+
+        # import existing key pair from AWS Console
+        self.key_pair = ec2.KeyPair.from_key_pair_name(
             self, 
-            "ServerKeyPairAdmin",
-            key_pair_name='adminServer.kp',
-            type=ec2.KeyPairType.RSA,
-            format=ec2.KeyPairFormat.PEM
+            "ExistingKeyPair",
+            key_pair_name='projectApp'
         )
+
         self.adminSG = ec2.SecurityGroup (
             self, 
             "AdminSG",
             vpc=self.vpc2,
+            allow_all_outbound=True,
             description="adminServerSecurityGroup",
             security_group_name='AdminSG',
+        )   
+        self.adminSG.add_ingress_rule( # admin access
+            ec2.Peer.ipv4('86.83.75.135/24'), 
+            ec2.Port.tcp(3389), 
+            "AllowRDPtrafficToSpecificIP"
         )
-        self.adminSG.add_ingress_rule(ec2.Peer.ipv4('86.83.75.135/24'), ec2.Port.tcp(3389), "AllowRDPtrafficToSpecificIP")
+        self.adminSG.add_ingress_rule( # ICMP test purposes
+            ec2.Peer.any_ipv4(), 
+            ec2.Port.all_icmp(), 
+            'AllowICMPtestServerConnection',
+        ) 
         self.adminServer = self.create_admin_server()
-        #CfnOutput(self, "adminServerOutput", value='adminServer')
         
-        self.webServerKeyPair = ec2.KeyPair(
-            self, 
-            "ServerKeyPairWeb",
-            key_pair_name='webServer.kp',
-            type=ec2.KeyPairType.RSA,
-            format=ec2.KeyPairFormat.PEM
-        )
         self.webSG = ec2.SecurityGroup (
             self, 
             "WebServerSG",
             vpc=self.vpc1,
-            description="webServerSecurityGroup",
             allow_all_outbound=True,
+            description="webServerSecurityGroup",
             security_group_name='WebServerSG'
         )
+        self.webSG.add_ingress_rule( # user request traffic
+            ec2.Peer.any_ipv4(), 
+            ec2.Port.tcp(80), 
+            'AllowHTTPtrafic'
+        ) 
+        self.webSG.add_ingress_rule( # 
+            ec2.Peer.any_ipv4(),
+            ec2.Port.tcp(22),
+            'AllowSSHtraffic',
+        )
+        self.webSG.add_ingress_rule( # ICMP test purposes
+            ec2.Peer.any_ipv4(),
+            ec2.Port.all_icmp(), 
+            'AllowICMPtestServerConnection',
+        ) 
+        #self.user_data_file = open("project_app_verion1/install-httpd.sh", "r").read()
         self.webServer = self.create_web_sever()
-        #CfnOutput(self, "webServerOutput", value='webServer')
 
         self.createRoutes()
+
+        # Export the instance private and public IP addresses to the console.
+        CfnOutput(
+            self,
+            'publicIPadminServer',
+            value=self.adminServer.attr_public_ip,
+            export_name='publicIPadminServer',
+        )
+        CfnOutput(
+            self,
+            'privateIPadminServer',
+            value=self.adminServer.attr_private_ip,
+            export_name='privateIPadminServer',
+        )
+        CfnOutput(
+            self,
+            'publicIPwebServer',
+            value=self.webServer.attr_public_ip,
+            export_name='publicIPwebServer', 
+        )
+        CfnOutput(
+            self,
+            'privateIPwebServer',
+            value=self.webServer.attr_private_ip,
+            export_name='privateIPwebServer', 
+        )
         
     # Create internet gateway and attach it to vpc1.
     def attach_internet_gateway(self) -> ec2.CfnInternetGateway:
@@ -184,7 +227,7 @@ class ProjectAppVersion1Stack(Stack):
         )
         ec2.CfnSubnetRouteTableAssociation(
             self,
-            'privRt1<-->pubSub1',
+            'privRt1<-->privSub1',
             route_table_id=self.route_table_id_to_route_table_mapVpc1['privateRT1'].ref,
             subnet_id=self.privateSubnet1.ref,
         )
@@ -210,7 +253,7 @@ class ProjectAppVersion1Stack(Stack):
             'IGW-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
             destination_cidr_block='0.0.0.0/0',
-            gateway_id=self.internet_gateway.ref,
+            gateway_id=self.internet_gateway.attr_internet_gateway_id,
         )
         # PrivateRT1 to NGW.
         ec2.CfnRoute(
@@ -218,39 +261,39 @@ class ProjectAppVersion1Stack(Stack):
             'NGW-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc1['privateRT1'].ref,
             destination_cidr_block='0.0.0.0/0',
-            nat_gateway_id=self.nat_gateway.ref,
+            nat_gateway_id=self.nat_gateway.attr_nat_gateway_id,
         )
         # PublicRT1 to vpc_peering_connection.
         ec2.CfnRoute(
             self,
             "peeringConnectionRoute1",
             route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
-            destination_cidr_block='10.20.20.0/24',
-            vpc_peering_connection_id=self.vpc_peering_connection.ref
+            destination_cidr_block=self.vpc2.vpc_cidr_block,
+            vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
         # PublicRT2 to vpc_peering_connection.
         ec2.CfnRoute(
             self,
             "peeringConnectionRoute2",
             route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
-            destination_cidr_block='10.10.10.0/24',
-            vpc_peering_connection_id=self.vpc_peering_connection.ref
+            destination_cidr_block=self.vpc1.vpc_cidr_block,
+            vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
         # PublicRT2 to adminServer
         ec2.CfnRoute(
             self,
             'AdminServer-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc2['publicRT2'].ref,
-            destination_cidr_block='10.20.20.0/26',
-            instance_id=self.adminServer.ref,
+            destination_cidr_block=self.publicSubnet2.cidr_block,
+            instance_id=self.adminServer.attr_id,
         )
         # publicRT1 to webServer.
         ec2.CfnRoute(
             self,
             'webServer-route',
             route_table_id=self.route_table_id_to_route_table_mapVpc1['publicRT1'].ref,
-            destination_cidr_block='10.10.10.0/26',
-            instance_id=self.webServer.ref,
+            destination_cidr_block=self.publicSubnet1.cidr_block,
+            instance_id=self.webServer.attr_id,
         )
     
     def create_admin_server(self) -> ec2.CfnInstance:
@@ -262,7 +305,7 @@ class ProjectAppVersion1Stack(Stack):
             subnet_id=self.publicSubnet2.ref,
             availability_zone=self.publicSubnet2.attr_availability_zone,
             security_group_ids=[self.adminSG.security_group_id],
-            key_name='adminServer.kp',
+            key_name=self.key_pair.key_pair_name,
             block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
                 device_name="/dev/sda1",
                 ebs=ec2.CfnInstance.EbsProperty(
@@ -275,7 +318,7 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{'key': 'Name', 'value': 'adminServer'}]
         )    
         return admin_server
-    
+
     def create_web_sever(self) -> ec2.CfnInstance:
         web_server = ec2.CfnInstance(
             self,
@@ -285,8 +328,7 @@ class ProjectAppVersion1Stack(Stack):
             subnet_id=self.publicSubnet1.ref,
             availability_zone=self.publicSubnet1.attr_availability_zone,
             security_group_ids=[self.webSG.security_group_id],
-            key_name='webServer.kp',
-            
+            key_name=self.key_pair.key_pair_name,
             block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
                 device_name="/dev/xvda",
                 ebs=ec2.CfnInstance.EbsProperty(
@@ -297,7 +339,9 @@ class ProjectAppVersion1Stack(Stack):
                     volume_type='gp3',
                 ),
             )],
-            tags=[{'key': 'Name', 'value': 'webServer'}]
+            tags=[{'key': 'Name', 'value': 'webServer'}],
         )
         return web_server
+    
+        
         
