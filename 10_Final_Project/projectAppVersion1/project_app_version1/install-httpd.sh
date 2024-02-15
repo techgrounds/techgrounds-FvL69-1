@@ -1,7 +1,6 @@
 #!/bin/bash
-yum update -y
-yum -y install httpd
-chkconfig httpd on
-systemctl enable httpd
-systemctl start httpd
-echo '<h1>Hello From Your Web Server!</h1>' > /var/www/html/index.html
+sudo yum update -y
+sudo yum install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo echo "<h1>Hello World from ProjectApp1.2</h1>" > /var/www/html/index.html

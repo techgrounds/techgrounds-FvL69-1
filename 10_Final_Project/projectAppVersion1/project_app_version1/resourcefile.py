@@ -76,3 +76,77 @@ Best Practices:
     Keep user data scripts secure and minimize secrets embedded within them.
     Consider using CloudFormation Secrets Manager for sensitive information.
     Test your user data scripts thoroughly before deploying them in production.
+
+
+# instance routes (non functional)
+ # PublicRT2 to adminServer
+        ec2.CfnRoute(
+            self,
+            'AdminServer-route',
+            destination_cidr_block=self.publicSubnet2.cidr_block,
+            route_table_id=self.publicRT2.attr_route_table_id,
+            instance_id=self.adminServer.ref,
+        )
+        # publicRT1 to webServer.
+        ec2.CfnRoute(
+            self,
+            'webServer-route',
+            destination_cidr_block=self.publicSubnet1.cidr_block,
+            route_table_id=self.publicRT1.attr_route_table_id,
+            instance_id=self.webServer.ref,
+        )
+
+    self.testSG = ec2.SecurityGroup (
+            self, 
+            "testSG",
+            vpc=self.vpc2,
+            allow_all_outbound=True,
+            description="testServerSecurityGroup",
+            security_group_name='testSG',
+        )   
+        self.testSG.add_ingress_rule( # user request traffic
+            ec2.Peer.any_ipv4(), 
+            ec2.Port.tcp(80), 
+            'AllowAllHTTPtrafic'
+        )
+        self.testSG.add_ingress_rule( # 
+            ec2.Peer.any_ipv4(),
+            ec2.Port.tcp(443),
+            'AllowAllHTTPStraffic',
+        ) 
+        self.testSG.add_ingress_rule( # 
+            ec2.Peer.any_ipv4(),
+            ec2.Port.tcp(22),
+            'AllowAllSSHtraffic',
+        )
+        self.testSG.add_ingress_rule( # ICMP test purposes
+            ec2.Peer.any_ipv4(),
+            ec2.Port.all_icmp(), 
+            'AllowICMPtestServerConnection',
+        )
+
+    self.testServer = self.create_test_server()
+    # test server!!!
+    def create_test_server(self) -> ec2.CfnInstance:
+        test_server = ec2.CfnInstance(
+            self,
+            "testServer",
+            instance_type='t2.micro', 
+            image_id='ami-03cceb19496c25679', # LNX AMI
+            subnet_id=self.publicSubnet2.ref,
+            availability_zone=self.publicSubnet2.attr_availability_zone,
+            security_group_ids=[self.testSG.security_group_id],
+            key_name=self.key_pair.key_pair_name,
+            block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
+                device_name="/dev/xvda",
+                ebs=ec2.CfnInstance.EbsProperty(
+                    delete_on_termination=True,
+                    encrypted=True,
+                    #kms_key_id="kmsKeyId",
+                    volume_size=30,
+                    volume_type='gp3',
+                ),
+            )],
+            tags=[{'key': 'Name', 'value': 'testServer'}],
+        )
+        return test_server
