@@ -1,8 +1,6 @@
 from aws_cdk import (
     Stack,
     aws_ec2 as ec2,
-    aws_elasticloadbalancingv2 as elbv2,
-    aws_autoscaling as autoscaling, 
     Fn,
 )
 from constructs import Construct
@@ -15,9 +13,9 @@ class ProjectAppVersion1Stack(Stack):
         self.vpc1 = ec2.Vpc(
             self,
             'vpc1',
-            max_azs=3,
+            max_azs=2,
             create_internet_gateway=False,
-            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/24'),
+            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/25'),
             subnet_configuration=[],
             enable_dns_hostnames=True,
             enable_dns_support=True,
@@ -27,7 +25,7 @@ class ProjectAppVersion1Stack(Stack):
         self.vpc2 = ec2.Vpc(
             self,
             'vpc2',
-            max_azs=3,
+            max_azs=2,
             create_internet_gateway=False,
             ip_addresses=ec2.IpAddresses.cidr('10.20.20.0/25'),
             subnet_configuration=[],
@@ -55,31 +53,13 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{'key': 'Name', 'value': 'publicSubnet1'}],
         )
 
-        self.privateSubnet1a = ec2.CfnSubnet(
+        self.privateSubnet1 = ec2.CfnSubnet(
             self,
-            'privateSubnet1a',
-            availability_zone='eu-central-1a',
+            'privateSubnet1',
+            availability_zone='eu-central-1b',
             cidr_block='10.10.10.64/26',
             vpc_id=self.vpc1.vpc_id,
-            tags=[{'key': 'Name', 'value': 'privateSubnet1a'}],
-        )
-
-        self.privateSubnet1b = ec2.CfnSubnet(
-            self,
-            'privateSubnet1b',
-            availability_zone='eu-central-1b',
-            cidr_block='10.10.10.128/26',
-            vpc_id=self.vpc1.vpc_id,
-            tags=[{'key': 'Name', 'value': 'privateSubnet1b'}],
-        )
-        
-        self.privateSubnet1c = ec2.CfnSubnet(
-            self,
-            'privateSubnet1c',
-            availability_zone='eu-central-1c',
-            cidr_block='10.10.10.192/26',
-            vpc_id=self.vpc1.vpc_id,
-            tags=[{'key': 'Name', 'value': 'privateSubnet1c'}]
+            tags=[{'key': 'Name', 'value': 'privateSubnet1'}],
         )
 
         # vpc2 subnets.
@@ -112,6 +92,14 @@ class ProjectAppVersion1Stack(Stack):
         self.create_Subnet_Route_Table_Associations()
         self.createRoutes()
 
+        # Creating a new key-pair.
+        self.create_key_pair = ec2.KeyPair(
+            self,
+            'createKeyPair',
+            type=ec2.KeyPairType.RSA,
+            key_pair_name='createdKeyPair'
+        )
+
         # Using existing key pair from AWS Console
         self.key_pair = ec2.KeyPair.from_key_pair_name(
             self, 
@@ -119,6 +107,7 @@ class ProjectAppVersion1Stack(Stack):
             key_pair_name='projectApp'
         )
 
+        # Creat admin security group.
         self.adminSG = ec2.SecurityGroup (
             self, 
             "AdminSG",
@@ -132,14 +121,11 @@ class ProjectAppVersion1Stack(Stack):
             connection=ec2.Port.tcp(3389), 
             description="AllowRDPtrafficToSpecificIP"
         )
-        self.adminSG.add_ingress_rule( # ICMP test purposes
-            ec2.Peer.ipv4('10.10.10.40/26'), 
-            ec2.Port.icmp_ping(), 
-            'AllowICMPtestServerConnection',
-        ) 
 
+        # Create admin server.
         self.adminServer = self.create_admin_server()
         
+        # Create web server security group.
         self.webSG = ec2.SecurityGroup (
             self, 
             "WebServerSG",
@@ -168,76 +154,14 @@ class ProjectAppVersion1Stack(Stack):
             connection=ec2.Port.tcp(22),
             description='AllowSSHtrafficFromAdminHome',
         )
-        self.webSG.add_ingress_rule( # ICMP test purposes
-            peer=ec2.Peer.ipv4('10.20.20.40/26'),
-            connection=ec2.Port.icmp_ping(), 
-            description='AllowICMPtestServerConnection',
-        )
-
-        # Get user data for web server and auto scaling. 
+        
+        # Get user data for web server. 
         self.user_data_file = open("project_app_version1/install-httpd.sh", "r").read()
+
+        # Create web server.
         self.webServer = self.create_web_server()
 
-        # AlbSG, TargetGroup, ALB, ASG and listner.
-        self.albSG = ec2.SecurityGroup(
-            self,
-            'albSG',
-            vpc=self.vpc1,
-            allow_all_outbound=True,
-            description='applicationLoadBalancerVpc1',
-            security_group_name='albSG',
-        )
-        self.albSG.add_ingress_rule(
-            peer=ec2.Peer.any_ipv4(), 
-            connection=ec2.Port.tcp(80), 
-            description='AllowAllHTTPtraffic',
-        )
-        self.webSG.add_ingress_rule(
-            self.albSG, 
-            connection=ec2.Port.tcp(80),
-            description='AllowTrafficFromALB'
-        ) 
 
-        # Application LoadBalancer.
-        self.ALB = elbv2.ApplicationLoadBalancer(
-            self, 
-            "LB",
-            security_group=self.albSG,
-            vpc=self.vpc1,
-            internet_facing=False,
-        )
-
-        # Listner.
-        self.listner1 = self.ALB.add_listener(
-            'publicListner',
-            port=80,
-            open=True,
-        )
-
-        # Target group. 
-        self.targetGroup = elbv2.ApplicationTargetGroup(
-            self, 
-            'TargetGroup', 
-            vpc=self.vpc1,
-            port=80, 
-            protocol=elbv2.ApplicationProtocol.HTTP,
-        )
-
-    
-        self.asg = autoscaling.AutoScalingGroup(
-            self, 
-            "ASG",
-            vpc=self.vpc1,
-            instance_type=ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO),
-            machine_image=ec2.AmazonLinuxImage(generation=ec2.AmazonLinuxGeneration.AMAZON_LINUX_2023),
-            security_group=self.albSG,
-            min_capacity=1,
-            max_capacity=3,
-            desired_capacity=1,
-            user_data=ec2.UserData.custom(self.user_data_file),
-        )
-
-        
     # Create internet gateway and attach it to vpc1.
     def attach_internet_gateway1(self) -> ec2.CfnInternetGateway:
         internet_gateway1 = ec2.CfnInternetGateway(
@@ -313,7 +237,7 @@ class ProjectAppVersion1Stack(Stack):
         # vpc1 public and private subnet route table associations.
         ec2.CfnSubnetRouteTableAssociation(
             self,
-            'pubRt1<-->pubSub1',
+            'pubRt1<-->pubSub1a',
             route_table_id=self.publicRT1.attr_route_table_id,
             subnet_id=self.publicSubnet1.attr_subnet_id,
         )
@@ -321,19 +245,7 @@ class ProjectAppVersion1Stack(Stack):
             self,
             'privRt1<-->privSub1a',
             route_table_id=self.privateRT1.attr_route_table_id,
-            subnet_id=self.privateSubnet1a.attr_subnet_id,
-        )
-        ec2.CfnSubnetRouteTableAssociation(
-            self,
-            'privRt1<-->privSub1b',
-            route_table_id=self.privateRT1.attr_route_table_id,
-            subnet_id=self.privateSubnet1b.attr_subnet_id,
-        )
-        ec2.CfnSubnetRouteTableAssociation(
-            self,
-            'privRt1<-->privSub1c',
-            route_table_id=self.privateRT1.attr_route_table_id,
-            subnet_id=self.privateSubnet1c.attr_subnet_id,
+            subnet_id=self.privateSubnet1.attr_subnet_id,
         )
         # vpc2 public and private subnet route table associations.
         ec2.CfnSubnetRouteTableAssociation(
@@ -416,7 +328,7 @@ class ProjectAppVersion1Stack(Stack):
         return admin_server
 
     def create_web_server(self) -> ec2.CfnInstance:
-        # Get user data file and encode with base64.
+        # Encode user data file with base64.
         encoded_user_data = Fn.base64(self.user_data_file)
         # Create web server.
         web_server = ec2.CfnInstance(
@@ -424,8 +336,8 @@ class ProjectAppVersion1Stack(Stack):
             "webServer",
             instance_type='t2.micro', 
             image_id='ami-03cceb19496c25679', # LNX AMI
-            subnet_id=self.privateSubnet1c.ref,
-            availability_zone=self.privateSubnet1c.attr_availability_zone,
+            subnet_id=self.publicSubnet1.ref,
+            availability_zone=self.publicSubnet1.attr_availability_zone,
             security_group_ids=[self.webSG.security_group_id],
             key_name=self.key_pair.key_pair_name,
             block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
@@ -438,11 +350,12 @@ class ProjectAppVersion1Stack(Stack):
                     volume_type='gp3',
                 ),
             )],
+            private_ip_address='10.10.10.20',
             user_data=encoded_user_data,
-            private_ip_address='10.10.10.200',
             tags=[{'key': 'Name', 'value': 'webServer'}],
         )
         return web_server
     
+
         
         
