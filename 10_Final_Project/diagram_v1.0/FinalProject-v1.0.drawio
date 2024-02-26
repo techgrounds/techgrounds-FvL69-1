@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-02-26T11:24:44.211Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="Pzp51NQy4_8BiTlMaDvf" version="23.1.6" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-26T11:28:23.507Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="Pt_iWWwwM7yK1ORFI9Kp" version="23.1.6" type="github">
   <diagram name="Pagina-1" id="PJHqQeVscJE3fAsvbVZz">
     <mxGraphModel dx="2700" dy="526" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#FFFFFF" math="0" shadow="0">
       <root>
@@ -118,17 +118,20 @@
         <mxCell id="_0UyvHpJM2_UYdEt7BVN-21" value="Availability Zone 1b" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="441" y="984.5" width="257" height="300" as="geometry" />
         </mxCell>
-        <mxCell id="8tDBMUT1Fk7rWq1yRiBQ-23" value="publicRT" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_table;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
+        <mxCell id="Dz7m19JUjk59nYBz_nPX-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="_0UyvHpJM2_UYdEt7BVN-11" source="8tDBMUT1Fk7rWq1yRiBQ-23" target="8tDBMUT1Fk7rWq1yRiBQ-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8tDBMUT1Fk7rWq1yRiBQ-23" value="publicRT2" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_table;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
           <mxGeometry x="320" y="1046" width="60" height="60" as="geometry" />
         </mxCell>
         <mxCell id="8tDBMUT1Fk7rWq1yRiBQ-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" source="Sj0KoQw-8R_YdXfJVcrg-72" target="8tDBMUT1Fk7rWq1yRiBQ-23" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="_0UyvHpJM2_UYdEt7BVN-15" value="vpc2" style="sketch=0;outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=0;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#879196;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#879196;dashed=0;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
-          <mxGeometry x="60" y="1010" width="730" height="255" as="geometry" />
+          <mxGeometry x="58.5" y="1020" width="730" height="255" as="geometry" />
         </mxCell>
         <mxCell id="Y8i-JmWOrCgMs_T9cGUN-2" value="Availability Zone 1a" style="fillColor=none;strokeColor=#147EBA;dashed=1;verticalAlign=top;fontStyle=0;fontColor=#147EBA;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" parent="_0UyvHpJM2_UYdEt7BVN-11" vertex="1">
-          <mxGeometry x="124.75" y="984.5" width="240" height="300" as="geometry" />
+          <mxGeometry x="120" y="984.5" width="240" height="300" as="geometry" />
         </mxCell>
         <mxCell id="Dz7m19JUjk59nYBz_nPX-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.933;entryY=0.467;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="_0UyvHpJM2_UYdEt7BVN-11" source="_0UyvHpJM2_UYdEt7BVN-29" target="8tDBMUT1Fk7rWq1yRiBQ-23">
           <mxGeometry relative="1" as="geometry">
