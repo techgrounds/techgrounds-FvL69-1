@@ -10,22 +10,24 @@ class ProjectAppVersion1Stack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
+        # Create VPC1.
         self.vpc1 = ec2.Vpc(
             self,
             'vpc1',
-            max_azs=2,
+            max_azs=3,
             create_internet_gateway=False,
-            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/25'),
+            ip_addresses=ec2.IpAddresses.cidr('10.10.10.0/24'),
             subnet_configuration=[],
             enable_dns_hostnames=True,
             enable_dns_support=True,
             nat_gateways=0,
         )
 
+        # Create VPC2.
         self.vpc2 = ec2.Vpc(
             self,
             'vpc2',
-            max_azs=2,
+            max_azs=3,
             create_internet_gateway=False,
             ip_addresses=ec2.IpAddresses.cidr('10.20.20.0/25'),
             subnet_configuration=[],
@@ -34,6 +36,7 @@ class ProjectAppVersion1Stack(Stack):
             nat_gateways=0,
         )
 
+        # Create peering connection VPC1<-->VPC2.
         self.vpc_peering_connection = ec2.CfnVPCPeeringConnection(
             self,
             'VpcPeeringConnection',
@@ -42,27 +45,63 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{'key': 'Name', 'value': 'vpc1_peering_vpc2'}]
         )
 
-        # vpc1 subnets.
-        self.publicSubnet1 = ec2.CfnSubnet(
+        # Create vpc1 public & private subnets.
+        self.publicSubnet1a = ec2.CfnSubnet(
             self,
-            'publicSubnet1',
+            'publicSubnet1a',
             availability_zone='eu-central-1a',
             cidr_block='10.10.10.0/26',
             vpc_id=self.vpc1.vpc_id,
             map_public_ip_on_launch=True,
-            tags=[{'key': 'Name', 'value': 'publicSubnet1'}],
+            tags=[{'key': 'Name', 'value': 'publicSubnet1a'}],
         )
 
-        self.privateSubnet1 = ec2.CfnSubnet(
+        self.privateSubnet1a = ec2.CfnSubnet(
             self,
-            'privateSubnet1',
-            availability_zone='eu-central-1b',
+            'privateSubnet1a',
+            availability_zone='eu-central-1a',
             cidr_block='10.10.10.64/26',
             vpc_id=self.vpc1.vpc_id,
-            tags=[{'key': 'Name', 'value': 'privateSubnet1'}],
+            tags=[{'key': 'Name', 'value': 'privateSubnet1a'}],
         )
 
-        # vpc2 subnets.
+        self.publicSubnet1b = ec2.CfnSubnet(
+            self,
+            'publicSubnet1b',
+            availability_zone='eu-central-1b',
+            cidr_block='10.10.10.128/27',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': 'publicSubnet1b'}],
+        )
+
+        self.privateSubnet1b = ec2.CfnSubnet(
+            self,
+            'privateSubnet1b',
+            availability_zone='eu-central-1b',
+            cidr_block='10.10.10.160/27',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': 'privateSubnet1b'}],
+        )
+
+        self.publicSubnet1c = ec2.CfnSubnet(
+            self,
+            'publicSubnet1c',
+            availability_zone='eu-central-1c',
+            cidr_block='10.10.10.192/27',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': 'publicSubnet1c'}]
+        )
+        
+        self.privateSubnet1c = ec2.CfnSubnet(
+            self,
+            'privateSubnet1c',
+            availability_zone='eu-central-1c',
+            cidr_block='10.10.10.224/27',
+            vpc_id=self.vpc1.vpc_id,
+            tags=[{'key': 'Name', 'value': 'privateSubnet1c'}]
+        )      
+
+        # Create vpc2 public & private subnets.
         self.publicSubnet2 = ec2.CfnSubnet(
             self,
             'publicSubnet2',
@@ -82,6 +121,7 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{'key': 'Name', 'value': 'privateSubnet2'}],
         )
 
+        # Instantiate and assigning function calls to instance variables.
         self.elastic_ip = ec2.CfnEIP(self, "EIP")
         self.nat_gateway = self.create_nat_gateway()
         self.nat_gateway.add_dependency(self.elastic_ip)
@@ -92,7 +132,7 @@ class ProjectAppVersion1Stack(Stack):
         self.create_Subnet_Route_Table_Associations()
         self.createRoutes()
 
-        # Creating a new key-pair.
+        # Create a new key-pair. (Location private key in AWS Console: AWS Systems Manager => Parameter Store)
         self.create_key_pair = ec2.KeyPair(
             self,
             'createKeyPair',
@@ -100,14 +140,14 @@ class ProjectAppVersion1Stack(Stack):
             key_pair_name='createdKeyPair'
         )
 
-        # Using existing key pair from AWS Console
+        # Import existing key pair from AWS Console
         self.key_pair = ec2.KeyPair.from_key_pair_name(
             self, 
             "ExistingKeyPair",
             key_pair_name='projectApp'
         )
 
-        # Creat admin security group.
+        # Creat admin server security group.
         self.adminSG = ec2.SecurityGroup (
             self, 
             "AdminSG",
@@ -115,8 +155,9 @@ class ProjectAppVersion1Stack(Stack):
             allow_all_outbound=True,
             description="adminServerSecurityGroup",
             security_group_name='AdminSG',
-        )  
-        self.adminSG.add_ingress_rule( # admin RDP access from home. 
+        )
+        # admin RDP access from admin home address.  
+        self.adminSG.add_ingress_rule(  
             peer=ec2.Peer.ipv4('86.83.75.135/24'), 
             connection=ec2.Port.tcp(3389), 
             description="AllowRDPtrafficToSpecificIP"
@@ -134,25 +175,23 @@ class ProjectAppVersion1Stack(Stack):
             description="webServerSecurityGroup",
             security_group_name='WebServerSG'
         )
+        # Public HTTP access.
         self.webSG.add_ingress_rule(
             peer=ec2.Peer.any_ipv4(), 
             connection=ec2.Port.tcp(80), 
             description='AllowAllHTTPtrafic'
         )
+        # Public HTTPS access.
         self.webSG.add_ingress_rule( 
             peer=ec2.Peer.any_ipv4(),
             connection=ec2.Port.tcp(443),
             description='AllowAllHTTPStraffic',
-        ) 
-        self.webSG.add_ingress_rule( # Internal SSH access admin. 
+        )
+        # Internal SSH access from admin server only. 
+        self.webSG.add_ingress_rule(  
             peer=ec2.Peer.ipv4('10.20.20.40/26'),
             connection=ec2.Port.tcp(22),
             description='AllowInternalSSHtrafficFromAdminServer',
-        )
-        self.webSG.add_ingress_rule( # Admin SSH access from home.
-            peer=ec2.Peer.ipv4('86.83.75.135/24'),
-            connection=ec2.Port.tcp(22),
-            description='AllowSSHtrafficFromAdminHome',
         )
         
         # Get user data for web server. 
@@ -162,7 +201,7 @@ class ProjectAppVersion1Stack(Stack):
         self.webServer = self.create_web_server()
 
 
-    # Create internet gateway and attach it to vpc1.
+    # Create IGW1 and attach it to vpc1.
     def attach_internet_gateway1(self) -> ec2.CfnInternetGateway:
         internet_gateway1 = ec2.CfnInternetGateway(
             self,
@@ -177,7 +216,7 @@ class ProjectAppVersion1Stack(Stack):
         )
         return internet_gateway1
     
-    # Create internet gateway and attach it to vpc1.
+    # Create IGW2 and attach it to vpc2.
     def attach_internet_gateway2(self) -> ec2.CfnInternetGateway:
         internet_gateway2 = ec2.CfnInternetGateway(
             self,
@@ -192,13 +231,13 @@ class ProjectAppVersion1Stack(Stack):
         )
         return internet_gateway2
     
-    # Create NAT gateway for publicsubnet1 (vpc1).
+    # Create NAT gateway in publicsubnet1a (vpc1).
     def create_nat_gateway(self) -> ec2.CfnNatGateway:
         nat_gateway = ec2.CfnNatGateway(
             self,
             'NGW',
             allocation_id=self.elastic_ip.attr_allocation_id,
-            subnet_id=self.publicSubnet1.ref,
+            subnet_id=self.publicSubnet1a.ref,
             tags=[{'key': 'Name', 'value': 'NGW'}],
         )
         return nat_gateway 
@@ -232,28 +271,57 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{"key": "Name", "value": 'privateRT2'}],
         )
 
-    # Create subnet route table associations vpc1 and vpc2.
+    # Subnet route table associations vpc1 and vpc2.
     def create_Subnet_Route_Table_Associations(self):
-        # vpc1 public and private subnet route table associations.
+        # AZ-1a.
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'pubRt1<-->pubSub1a',
             route_table_id=self.publicRT1.attr_route_table_id,
-            subnet_id=self.publicSubnet1.attr_subnet_id,
+            subnet_id=self.publicSubnet1a.attr_subnet_id,
         )
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'privRt1<-->privSub1a',
             route_table_id=self.privateRT1.attr_route_table_id,
-            subnet_id=self.privateSubnet1.attr_subnet_id,
+            subnet_id=self.privateSubnet1a.attr_subnet_id,
         )
+        # AZ-1b.
+        ec2.CfnSubnetRouteTableAssociation(
+            self,
+            'pubRt1<-->pubSub1b',
+            route_table_id=self.publicRT1.attr_route_table_id,
+            subnet_id=self.publicSubnet1b.attr_subnet_id,
+        )
+        ec2.CfnSubnetRouteTableAssociation(
+            self,
+            'privRt1<-->privSub1b',
+            route_table_id=self.privateRT1.attr_route_table_id,
+            subnet_id=self.privateSubnet1b.attr_subnet_id,
+        )
+        # AZ-1c.
+        ec2.CfnSubnetRouteTableAssociation(
+            self,
+            'pubRt1<-->pubSub1c',
+            route_table_id=self.publicRT1.attr_route_table_id,
+            subnet_id=self.publicSubnet1c.attr_subnet_id,
+        )
+        ec2.CfnSubnetRouteTableAssociation(
+            self,
+            'privRt1<-->privSub1c',
+            route_table_id=self.privateRT1.attr_route_table_id,
+            subnet_id=self.privateSubnet1c.attr_subnet_id,
+        )
+
         # vpc2 public and private subnet route table associations.
+        # AZ-1a.
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'pubRt2<-->pubSub2',
             route_table_id=self.publicRT2.attr_route_table_id,
             subnet_id=self.publicSubnet2.attr_subnet_id,
         )
+        # AZ-1b.
         ec2.CfnSubnetRouteTableAssociation(
             self,
             'privRt2<-->privSub2',
@@ -261,6 +329,7 @@ class ProjectAppVersion1Stack(Stack):
             subnet_id=self.privateSubnet2.attr_subnet_id,
         )
 
+    # Create routes for RTs with IGWs 1&2, NGW and VPC_peering_connection.
     def createRoutes(self):
         # PublicRT1 to IGW1.
         ec2.CfnRoute(
@@ -302,7 +371,16 @@ class ProjectAppVersion1Stack(Stack):
             destination_cidr_block=self.vpc1.vpc_cidr_block,
             vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
+        # PrivateRT2 to vpc_peering_connection. (For future DB)
+        ec2.CfnRoute(
+            self,
+            "peeringConnectionRoute3",
+            route_table_id=self.privateRT2.attr_route_table_id,
+            destination_cidr_block=self.vpc1.vpc_cidr_block,
+            vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
+        )
 
+    # Create admin server in publicSubnet2
     def create_admin_server(self) -> ec2.CfnInstance:
         admin_server = ec2.CfnInstance(
             self,
@@ -326,7 +404,8 @@ class ProjectAppVersion1Stack(Stack):
             tags=[{'key': 'Name', 'value': 'adminServer'}]
         )    
         return admin_server
-
+    
+    # Create web server in publicSubnet1a
     def create_web_server(self) -> ec2.CfnInstance:
         # Encode user data file with base64.
         encoded_user_data = Fn.base64(self.user_data_file)
@@ -336,8 +415,8 @@ class ProjectAppVersion1Stack(Stack):
             "webServer",
             instance_type='t2.micro', 
             image_id='ami-03cceb19496c25679', # LNX AMI
-            subnet_id=self.publicSubnet1.ref,
-            availability_zone=self.publicSubnet1.attr_availability_zone,
+            subnet_id=self.publicSubnet1a.ref,
+            availability_zone=self.publicSubnet1a.attr_availability_zone,
             security_group_ids=[self.webSG.security_group_id],
             key_name=self.key_pair.key_pair_name,
             block_device_mappings=[ec2.CfnInstance.BlockDeviceMappingProperty(
