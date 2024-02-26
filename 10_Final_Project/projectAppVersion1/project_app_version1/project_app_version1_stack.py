@@ -371,6 +371,14 @@ class ProjectAppVersion1Stack(Stack):
             destination_cidr_block=self.vpc1.vpc_cidr_block,
             vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
         )
+        # PrivateRT1 to vpc_peering_connection. (For future DB)
+        ec2.CfnRoute(
+            self,
+            "peeringConnectionRoute3",
+            route_table_id=self.privateRT1.attr_route_table_id,
+            destination_cidr_block=self.vpc2.vpc_cidr_block,
+            vpc_peering_connection_id=self.vpc_peering_connection.attr_id,
+        )
         # PrivateRT2 to vpc_peering_connection. (For future DB)
         ec2.CfnRoute(
             self,
