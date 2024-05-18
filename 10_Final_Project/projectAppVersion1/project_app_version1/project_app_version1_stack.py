@@ -158,7 +158,7 @@ class ProjectAppVersion1Stack(Stack):
         )
         # admin RDP access from admin home address.  
         self.adminSG.add_ingress_rule(  
-            peer=ec2.Peer.ipv4('86.83.75.135/24'), 
+            peer=ec2.Peer.ipv4('xx.xx.xx.xxx/24'), 
             connection=ec2.Port.tcp(3389), 
             description="AllowRDPtrafficToSpecificIP"
         )
